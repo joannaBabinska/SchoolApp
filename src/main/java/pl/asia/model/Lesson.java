@@ -7,8 +7,9 @@ public class Lesson {
   String topic;
   LocalDateTime date;
   Teacher teacher;
-//  Set<Student> students;
+  Set<Student> students;
   int numberOfRoom;
+
 }
 /*
 dodac biblioteke Lombok jako zaleznosc do mavena

@@ -1,20 +1,22 @@
 package pl.asia.model;
 
-public class Teacher extends User{
-  private String schoolSubject;
+import java.util.Set;
+
+public class Teacher extends User {
+  private Set<String> schoolSubject;
   private int hourlyWage;
 
-  public Teacher(int id, String firstName, String lastName, int age, String schoolSubject, int hourlyWage) {
+  public Teacher(int id, String firstName, String lastName, int age, Set<String> schoolSubject, int hourlyWage) {
     super(id, firstName, lastName, age);
     this.schoolSubject = schoolSubject;
     this.hourlyWage = hourlyWage;
   }
 
-  public String getSchoolSubject() {
+  public Set<String> getSchoolSubject() {
     return schoolSubject;
   }
 
-  public void setSchoolSubject(String schoolSubject) {
+  public void setSchoolSubject(Set<String> schoolSubject) {
     this.schoolSubject = schoolSubject;
   }
 
