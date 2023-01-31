@@ -1,12 +1,13 @@
+package pl.asia.model;
+
 import java.time.LocalDateTime;
-import java.util.Set;
 
 public class Lesson {
   String id;
   String topic;
   LocalDateTime date;
   Teacher teacher;
-  Set<Student> students;
+//  Set<Student> students;
   int numberOfRoom;
 }
 /*

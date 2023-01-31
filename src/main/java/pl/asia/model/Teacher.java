@@ -1,9 +1,11 @@
+package pl.asia.model;
+
 public class Teacher extends User{
   private String schoolSubject;
   private int hourlyWage;
 
-  public Teacher(String firstName, String lastName, int age, String schoolSubject, int hourlyWage) {
-    super(firstName, lastName, age);
+  public Teacher(int id, String firstName, String lastName, int age, String schoolSubject, int hourlyWage) {
+    super(id, firstName, lastName, age);
     this.schoolSubject = schoolSubject;
     this.hourlyWage = hourlyWage;
   }
