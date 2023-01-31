@@ -1,5 +1,6 @@
 package pl.asia.model;
 
+import java.util.Objects;
 import java.util.Set;
 
 public class Teacher extends User {
@@ -26,5 +27,19 @@ public class Teacher extends User {
 
   public void setHourlyWage(int hourlyWage) {
     this.hourlyWage = hourlyWage;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    if (!super.equals(o)) return false;
+    Teacher teacher = (Teacher) o;
+    return hourlyWage == teacher.hourlyWage && Objects.equals(schoolSubject, teacher.schoolSubject);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(super.hashCode(), schoolSubject, hourlyWage);
   }
 }
