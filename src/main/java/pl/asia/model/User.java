@@ -1,18 +1,27 @@
 package pl.asia.model;
 
+import java.util.Date;
 import java.util.Objects;
 
 public abstract class User {
   private int id;
   private String firstName;
   private String lastName;
-  private int age;
+  private Date dateOfBirth;
 
-  public User(int id, String firstName, String lastName, int age) {
+  public User(int id, String firstName, String lastName, Date dateOfBirth) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
-    this.age = age;
+    this.dateOfBirth = dateOfBirth;
+  }
+
+  public Date getDateOfBirth() {
+    return dateOfBirth;
+  }
+
+  public void setDateOfBirth(Date dateOfBirth) {
+    this.dateOfBirth = dateOfBirth;
   }
 
   public int getId() {
@@ -39,24 +48,16 @@ public abstract class User {
     this.lastName = lastName;
   }
 
-  public int getAge() {
-    return age;
-  }
-
-  public void setAge(int age) {
-    this.age = age;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     User user = (User) o;
-    return age == user.age && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName);
+    return id == user.id && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(dateOfBirth, user.dateOfBirth);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(firstName, lastName, age);
+    return Objects.hash(id, firstName, lastName, dateOfBirth);
   }
 }

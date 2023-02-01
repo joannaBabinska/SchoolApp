@@ -13,7 +13,8 @@ public class Lesson {
   private int numberOfRoom;
   private int price;
 
-  public Lesson(String id, Teacher teacher, Set<Student> students, String topic, LocalDateTime date, int duration, int numberOfRoom, int price) {
+  public Lesson(String id, Teacher teacher, Set<Student> students, String topic,
+                LocalDateTime date, int duration, int numberOfRoom, int price) {
     this.id = id;
     this.teacher = teacher;
     this.students = students;
