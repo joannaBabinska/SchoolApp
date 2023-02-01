@@ -25,13 +25,11 @@ public class TeacherDao {
 
 
   public void save(Teacher teacher) {
-
     final String sql = String.format("""
-                   INSERT INTO teacher
-                   (hourly_wage, first_name, last_name,date_of_birth)
-                   VALUES (%s, '%s', '%s', '%s');""",
+                    INSERT INTO teacher
+                    (hourly_wage, first_name, last_name,date_of_birth)
+                    VALUES (%s, '%s', '%s', '%s');""",
             teacher.getHourlyWage(), teacher.getFirstName(), teacher.getLastName(), teacher.getDateOfBirth());
-
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
@@ -42,4 +40,5 @@ public class TeacherDao {
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-  }}
+  }
+}
