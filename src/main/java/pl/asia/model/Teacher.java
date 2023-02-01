@@ -26,6 +26,7 @@ public class Teacher extends User {
     return schoolSubject;
   }
 
+
   public void setSchoolSubject(Set<String> schoolSubject) {
     this.schoolSubject = schoolSubject;
   }

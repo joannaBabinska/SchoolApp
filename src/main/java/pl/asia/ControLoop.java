@@ -17,12 +17,12 @@ public class ControLoop {
   }
 
 
-  void loop() {
-    Options options;
-    do {
-      printOptions();
-    } switch ()
-  }
+//  void loop() {
+//    Options options;
+//    do {
+//      printOptions();
+//    } switch ()
+//  }
 
   private void printOptions() {
     consolePrinter.printLine("Wybierz opcję");
@@ -30,7 +30,7 @@ public class ControLoop {
       consolePrinter.printLine(options.toString());
   }
 
-}
+
 
 // opttion: dodaj nowego naucycuela
 //    teacherService.addTeacher();
@@ -60,4 +60,4 @@ private enum Options {
   public String toString() {
     return value + " - " + descriptions;
   }
-}
+}}

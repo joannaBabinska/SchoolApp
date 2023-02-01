@@ -3,6 +3,7 @@ package pl.asia;
 import pl.asia.io.file.ConsolePrinter;
 import pl.asia.model.Teacher;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -21,7 +22,7 @@ public class DataReader {
     consolePrinter.printLine("Podaj imię");
     String firstName = scanner.nextLine();
     consolePrinter.printLine("Podaj nazwisko");
-    String LastName = scanner.nextLine();
+    String lastName = scanner.nextLine();
     consolePrinter.printLine("Podaj date urodzenia w formacie YYYY-MM-DD");
     String dateOfBirth = scanner.nextLine();
     LocalDate localDateDateOfBirth = LocalDate.parse(dateOfBirth);
@@ -29,7 +30,9 @@ public class DataReader {
     int numberOfSchoolSubject = scanner.nextInt();
     scanner.nextLine();
     Set<String> subjectSet = createSubjectSet(numberOfSchoolSubject);
-
+    consolePrinter.printLine("Podaj stawkę godzinową");
+    int hourlyWage = scanner.nextInt();
+    return new Teacher(firstName,lastName,localDateDateOfBirth,subjectSet, BigDecimal.valueOf(hourlyWage));
   }
 
   private Set<String> createSubjectSet(int numberOfSchoolSubject) {
