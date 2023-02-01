@@ -23,7 +23,7 @@ public class Main {
      JoannaSubject.add("Polski");
     Teacher teacher1 = new Teacher("Joanna", "Babińska", LocalDate.of(1999,10,12), JoannaSubject, new BigDecimal(100));
      teacherDao.save(teacher1);
-     teacherDao.saveSubject(teacher1);
+     teacherDao.saveAllSubject(teacher1);
 
 
   }

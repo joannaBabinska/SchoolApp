@@ -44,19 +44,15 @@ public class TeacherDao {
 
   }
 
-  public void saveSubject(Teacher teacher) {
-    StringBuilder sb = new StringBuilder();
-    final String sql = sb.toString();
 
-
-    for (String s : teacher.getSchoolSubject()) {
-      sb.append("""
+  public void saveOneSubject(Teacher teacher, String subject) {
+    final String sql = ("""
               INSERT IGNORE INTO subject
                       (name)
               VALUES
-                      ('%s');""".formatted(s));
-
-    }
+                      ('%s');
+                      
+                      """.formatted(subject));
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
@@ -66,9 +62,16 @@ public class TeacherDao {
       }
     } catch (SQLException e) {
       throw new RuntimeException(e);
+    }}
+
+    public void saveAllSubject(Teacher teacher){
+      Iterator<String> subjects = teacher.getSchoolSubject().iterator();
+      while (subjects.hasNext()) {
+        saveOneSubject(teacher,subjects.next());
+      }
     }
 
 
   }
-}
+
 
