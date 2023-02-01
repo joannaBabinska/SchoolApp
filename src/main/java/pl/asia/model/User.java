@@ -1,32 +1,33 @@
 package pl.asia.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 import java.util.Objects;
 
 public abstract class User {
   private int id;
   private String firstName;
   private String lastName;
-  private Date dateOfBirth;
+  private LocalDate dateOfBirth;
 
-  public User(int id, String firstName, String lastName, Date dateOfBirth) {
+  public User(int id, String firstName, String lastName, LocalDate dateOfBirth) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.dateOfBirth = dateOfBirth;
   }
 
-  public User(String firstName, String lastName, Date dateOfBirth) {
+  public User(String firstName, String lastName, LocalDate dateOfBirth) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.dateOfBirth = dateOfBirth;
   }
 
-  public Date getDateOfBirth() {
+  public LocalDate getDateOfBirth() {
     return dateOfBirth;
   }
 
-  public void setDateOfBirth(Date dateOfBirth) {
+  public void setDateOfBirth(LocalDate dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
 

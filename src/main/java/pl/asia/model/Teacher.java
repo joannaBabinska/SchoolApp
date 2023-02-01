@@ -1,6 +1,7 @@
 package pl.asia.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -9,13 +10,13 @@ public class Teacher extends User {
   private Set<String> schoolSubject;
   private BigDecimal hourlyWage;
 
-  public Teacher(int id, String firstName, String lastName, Date dateOfBirth, Set<String> schoolSubject, BigDecimal hourlyWage) {
+  public Teacher(int id, String firstName, String lastName, LocalDate dateOfBirth, Set<String> schoolSubject, BigDecimal hourlyWage) {
     super(id, firstName, lastName, dateOfBirth);
     this.schoolSubject = schoolSubject;
     this.hourlyWage = hourlyWage;
   }
 
-  public Teacher(String firstName, String lastName, Date dateOfBirth, Set<String> schoolSubject, BigDecimal hourlyWage) {
+  public Teacher(String firstName, String lastName, LocalDate dateOfBirth, Set<String> schoolSubject, BigDecimal hourlyWage) {
     super(firstName, lastName, dateOfBirth);
     this.schoolSubject = schoolSubject;
     this.hourlyWage = hourlyWage;

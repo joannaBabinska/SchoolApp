@@ -1,5 +1,6 @@
 package pl.asia.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -7,13 +8,13 @@ public class Student extends User{
   private int grade;
   private String school;
 
-  public Student(int id, String firstName, String lastName, Date dateOfBirth, int grade, String school) {
+  public Student(int id, String firstName, String lastName, LocalDate dateOfBirth, int grade, String school) {
     super(id, firstName, lastName, dateOfBirth);
     this.grade = grade;
     this.school = school;
   }
 
-  public Student(String firstName, String lastName, Date dateOfBirth, int grade, String school) {
+  public Student(String firstName, String lastName, LocalDate dateOfBirth, int grade, String school) {
     super(firstName, lastName, dateOfBirth);
     this.grade = grade;
     this.school = school;
