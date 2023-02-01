@@ -15,6 +15,6 @@ public class ControLoop {
 
   void loop() {
     // opttion: dodaj nowego naucycuela
-    teacherService.addTeacher();
+//    teacherService.addTeacher();
   }
 }

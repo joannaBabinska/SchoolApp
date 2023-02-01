@@ -15,6 +15,12 @@ public class Teacher extends User {
     this.hourlyWage = hourlyWage;
   }
 
+  public Teacher(String firstName, String lastName, Date dateOfBirth, Set<String> schoolSubject, BigDecimal hourlyWage) {
+    super(firstName, lastName, dateOfBirth);
+    this.schoolSubject = schoolSubject;
+    this.hourlyWage = hourlyWage;
+  }
+
   public Set<String> getSchoolSubject() {
     return schoolSubject;
   }

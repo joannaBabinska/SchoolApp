@@ -16,6 +16,12 @@ public abstract class User {
     this.dateOfBirth = dateOfBirth;
   }
 
+  public User(String firstName, String lastName, Date dateOfBirth) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.dateOfBirth = dateOfBirth;
+  }
+
   public Date getDateOfBirth() {
     return dateOfBirth;
   }

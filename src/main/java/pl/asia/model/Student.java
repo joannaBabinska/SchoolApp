@@ -13,6 +13,12 @@ public class Student extends User{
     this.school = school;
   }
 
+  public Student(String firstName, String lastName, Date dateOfBirth, int grade, String school) {
+    super(firstName, lastName, dateOfBirth);
+    this.grade = grade;
+    this.school = school;
+  }
+
   public int getGrade() {
     return grade;
   }
