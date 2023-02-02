@@ -1,36 +1,62 @@
 package pl.asia.app;
 
 import pl.asia.dao.TeacherDao;
+import pl.asia.exception.NoSuchOptionException;
 import pl.asia.io.file.ConsolePrinter;
+import pl.asia.io.file.DataReader;
 import pl.asia.service.TeacherService;
+
+import java.util.InputMismatchException;
 
 public class ControlLoop {
 
   private final TeacherDao teacherDao;
   private final TeacherService teacherService;
   private final ConsolePrinter consolePrinter;
+  private final DataReader dataReader;
 
-  public ControlLoop(TeacherDao teacherDao, TeacherService teacherService, ConsolePrinter consolePrinter) {
+  public ControlLoop(TeacherDao teacherDao, TeacherService teacherService, ConsolePrinter consolePrinter, DataReader dataReader) {
     this.teacherDao = teacherDao;
     this.teacherService = teacherService;
     this.consolePrinter = consolePrinter;
+    this.dataReader = dataReader;
   }
 
   void mainLoop() {
-    Options options;
+    Options option = null;
+    do{
     printOptions();
-    getOptions();
+    option = getOptions();
+    switch (option){
+      case EXIT -> exit();
+      case ADD_TEACHER -> addTeacher();
+      default ->consolePrinter.printLine("Nie ma takiej opcji");
+    }
+  } while (option != Options.EXIT);
   }
 
-  private void getOptions() {
-    boolean optionOK = false;
-    Options options;
-    while (!optionOK) {
-      try {
-        options =
-      }
+  private void exit(){
+    consolePrinter.printLine("Do widzenia");
+  }
 
+  private void addTeacher() {
+    teacherService.addTeacher(dataReader.addTeacher());
+  }
+
+  private Options getOptions() {
+    boolean optionOk = false;
+    Options option = null;
+    while (!optionOk) {
+      try {
+        option = Options.createFromInt(dataReader.getInt());
+        optionOk = true;
+      } catch (NoSuchOptionException e) {
+        consolePrinter.printError(e.getMessage());
+      } catch (InputMismatchException e) {
+        consolePrinter.printError("Wprowadzona wartość nie jest liczbą, podaj ją ponownie");
+      }
     }
+    return option;
   }
 
 

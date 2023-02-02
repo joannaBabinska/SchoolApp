@@ -45,7 +45,7 @@ public class DataReader {
     return schoolSubject;
   }
 
-  private int getInt() {
+  public int getInt() {
     try {
       return scanner.nextInt();
     } finally {
