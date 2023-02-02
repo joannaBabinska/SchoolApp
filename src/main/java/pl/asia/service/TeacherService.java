@@ -13,6 +13,6 @@ public class TeacherService {
 
   public void addTeacher(Teacher teacher) {
     teacherDao.save(teacher);
-    System.out.println("Dodano");
+    teacherDao.saveAllSubject(teacher);
   }
 }

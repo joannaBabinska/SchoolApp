@@ -1,4 +1,4 @@
-package pl.asia;
+package pl.asia.io.file;
 
 import pl.asia.io.file.ConsolePrinter;
 import pl.asia.model.Teacher;
@@ -32,7 +32,7 @@ public class DataReader {
     Set<String> subjectSet = createSubjectSet(numberOfSchoolSubject);
     consolePrinter.printLine("Podaj stawkę godzinową");
     int hourlyWage = scanner.nextInt();
-    return new Teacher(firstName,lastName,localDateDateOfBirth,subjectSet, BigDecimal.valueOf(hourlyWage));
+    return new Teacher(firstName, lastName, localDateDateOfBirth, subjectSet, BigDecimal.valueOf(hourlyWage));
   }
 
   private Set<String> createSubjectSet(int numberOfSchoolSubject) {
@@ -45,4 +45,12 @@ public class DataReader {
     return schoolSubject;
   }
 
+  private int getInt() {
+    try {
+      return scanner.nextInt();
+    } finally {
+      scanner.nextLine();
+    }
+
+  }
 }

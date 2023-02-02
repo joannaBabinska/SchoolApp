@@ -45,7 +45,7 @@ public class Teacher extends User {
     if (o == null || getClass() != o.getClass()) return false;
     if (!super.equals(o)) return false;
     Teacher teacher = (Teacher) o;
-    return hourlyWage == teacher.hourlyWage && Objects.equals(schoolSubject, teacher.schoolSubject);
+    return Objects.equals(schoolSubject, teacher.schoolSubject) && Objects.equals(hourlyWage, teacher.hourlyWage);
   }
 
   @Override
