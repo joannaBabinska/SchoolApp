@@ -54,37 +54,25 @@ public class DataReader {
 
   void addSubjectToTeacher(Teacher teacher) {
     Subject subject;
-    do {
       consolePrinter.printLine("Ilu przedmiotów może uczyć ten nauczyciel?");
-      int iteration = insertInt();
+      int iteration = getInt();
 
       consolePrinter.printLine("Wybierz przedmiot wśród wyświetlonych");
       printSubject();
       for (int i = 0; i <iteration+1 ; i++) {
-        teacher.setSchoolSubject(insertString());
+        teacher.setSchoolSubject(getString());
       }
+    }
 
 
-
-    }}
-
-  private int insertInt() {
-    int i = scanner.nextInt();
-
-    scanner.nextLine();
-    return i;
-  }
-
-  private String insertString() {
+  private String getString() {
     return scanner.nextLine();
   }
 
   private void printSubject() {
-
       for (Subject value : Subject.values()) {
         System.out.println(value);
       }
-
     }
 
   }
@@ -102,11 +90,13 @@ public class DataReader {
       this.fullName = fullName;
     }
 
+    public String getCode() {
+      return code;
+    }
 
+    public String getFullName() {
+      return fullName;
+    }
   }
 
 
-}
-};
-
-        }
