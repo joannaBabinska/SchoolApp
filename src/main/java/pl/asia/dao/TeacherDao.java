@@ -1,19 +1,16 @@
 package pl.asia.dao;
 
+import pl.asia.model.Subject;
 import pl.asia.model.Teacher;
 
 import java.sql.*;
 import java.util.Iterator;
 
 public class TeacherDao {
-  private final Connection connection;
+  private final Connection connection = ConnectionProvider.getConnection();
 
   public TeacherDao() {
-    try {
-      this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/schoolapp", "root", "admin");
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
+    ConnectionProvider.getConnection();
   }
 
   public void close() {
@@ -47,12 +44,12 @@ public class TeacherDao {
 
   public void saveOneSubject(Teacher teacher, String subject) {
     final String sql = ("""
-              INSERT IGNORE INTO subject
-                      (name)
-              VALUES
-                      ('%s');
+            INSERT IGNORE INTO subject
+                    ('%s')
+            VALUES
+                    ('%s');
                       
-                      """.formatted(subject));
+                    """.formatted(subject, teacher.getId()));
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
@@ -62,16 +59,16 @@ public class TeacherDao {
       }
     } catch (SQLException e) {
       throw new RuntimeException(e);
-    }}
-
-    public void saveAllSubject(Teacher teacher){
-      Iterator<String> subjects = teacher.getSchoolSubject().iterator();
-      while (subjects.hasNext()) {
-        saveOneSubject(teacher,subjects.next());
-      }
     }
-
-
   }
+
+  public void saveAllSubject(Teacher teacher) {
+    for (Subject subject : teacher.getSchoolSubject()) {
+      saveOneSubject(teacher, String.valueOf(subject));
+    }
+  }
+
+
+}
 
 

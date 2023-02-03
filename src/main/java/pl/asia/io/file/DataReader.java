@@ -1,6 +1,5 @@
 package pl.asia.io.file;
 
-import pl.asia.io.file.ConsolePrinter;
 import pl.asia.model.Teacher;
 
 import java.math.BigDecimal;
@@ -51,6 +50,63 @@ public class DataReader {
     } finally {
       scanner.nextLine();
     }
+  }
+
+  void addSubjectToTeacher(Teacher teacher) {
+    Subject subject;
+    do {
+      consolePrinter.printLine("Ilu przedmiotów może uczyć ten nauczyciel?");
+      int iteration = insertInt();
+
+      consolePrinter.printLine("Wybierz przedmiot wśród wyświetlonych");
+      printSubject();
+      for (int i = 0; i <iteration+1 ; i++) {
+        teacher.setSchoolSubject(insertString());
+      }
+
+
+
+    }}
+
+  private int insertInt() {
+    int i = scanner.nextInt();
+
+    scanner.nextLine();
+    return i;
+  }
+
+  private String insertString() {
+    return scanner.nextLine();
+  }
+
+  private void printSubject() {
+
+      for (Subject value : Subject.values()) {
+        System.out.println(value);
+      }
+
+    }
 
   }
+
+  enum Subject {
+    MATH("MAT", "Matematyka"),
+    POLISH_LANGUAGE("POL", "Język Poolski"),
+    ENGLISH_LANGUAGE("ENG", "Język Angielski");
+
+    private final String code;
+    private final String fullName;
+
+    Subject(final String code, final String fullName) {
+      this.code = code;
+      this.fullName = fullName;
+    }
+
+
+  }
+
+
 }
+};
+
+        }

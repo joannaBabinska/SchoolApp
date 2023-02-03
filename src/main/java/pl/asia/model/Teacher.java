@@ -27,8 +27,8 @@ public class Teacher extends User {
   }
 
 
-  public void setSchoolSubject(Set<String> schoolSubject) {
-    this.schoolSubject = schoolSubject;
+  public void setSchoolSubject(String subject) {
+    this.schoolSubject.add(subject);
   }
 
   public BigDecimal getHourlyWage() {
