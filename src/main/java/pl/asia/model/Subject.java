@@ -1,19 +1,19 @@
 package pl.asia.model;
 
 public enum Subject {
-  MATH("MAT", "Matematyka"),
-  POLISH_LANGUAGE("POL", "Język Poolski"),
-  ENGLISH_LANGUAGE("ENG", "Język Angielski");
+  MATH(1, "Matematyka"),
+  POLISH_LANGUAGE(2, "Język Poolski"),
+  ENGLISH_LANGUAGE(3, "Język Angielski");
 
-  private final String code;
+  private final int code;
   private final String fullName;
 
-  Subject(final String code, final String fullName) {
+  Subject(final int code, final String fullName) {
     this.code = code;
     this.fullName = fullName;
   }
 
-  public String getCode() {
+  public int getCode() {
     return code;
   }
 
