@@ -1,33 +1,33 @@
 package pl.asia.model;
 
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
 public class Teacher extends User {
-  private Set<String> schoolSubject;
+  private Set<Subject> schoolSubject;
   private BigDecimal hourlyWage;
 
-  public Teacher(int id, String firstName, String lastName, LocalDate dateOfBirth, Set<String> schoolSubject, BigDecimal hourlyWage) {
+  public Teacher(int id, String firstName, String lastName, LocalDate dateOfBirth, Set<Subject> schoolSubject, BigDecimal hourlyWage) {
     super(id, firstName, lastName, dateOfBirth);
     this.schoolSubject = schoolSubject;
     this.hourlyWage = hourlyWage;
   }
 
-  public Teacher(String firstName, String lastName, LocalDate dateOfBirth, Set<String> schoolSubject, BigDecimal hourlyWage) {
+  public Teacher(String firstName, String lastName, LocalDate dateOfBirth, Set<Subject> schoolSubject, BigDecimal hourlyWage) {
     super(firstName, lastName, dateOfBirth);
     this.schoolSubject = schoolSubject;
     this.hourlyWage = hourlyWage;
   }
 
-  public Set<String> getSchoolSubject() {
+  public Set<Subject> getSchoolSubject() {
     return schoolSubject;
   }
 
 
-  public void setSchoolSubject(String subject) {
+  public void setSchoolSubject(Subject subject) {
     this.schoolSubject.add(subject);
   }
 

@@ -1,5 +1,6 @@
 package pl.asia.io.file;
 
+import pl.asia.model.Subject;
 import pl.asia.model.Teacher;
 
 import java.math.BigDecimal;
@@ -28,20 +29,28 @@ public class DataReader {
     consolePrinter.printLine("Podaj liczbę przedmiotów, których może uczyć ten nauczyciel");
     int numberOfSchoolSubject = scanner.nextInt();
     scanner.nextLine();
-    Set<String> subjectSet = createSubjectSet(numberOfSchoolSubject);
+    consolePrinter.printLine("Wybierz przedmiot wśród wyświetlonych");
+    Subject.printSubject(); // dodaj lun exit przez switcha
+    Set<Subject> subjects = readSubjects(numberOfSchoolSubject);
     consolePrinter.printLine("Podaj stawkę godzinową");
     int hourlyWage = scanner.nextInt();
-    return new Teacher(firstName, lastName, localDateDateOfBirth, subjectSet, BigDecimal.valueOf(hourlyWage));
+    return new Teacher(firstName, lastName, localDateDateOfBirth, subjects, BigDecimal.valueOf(hourlyWage));
   }
 
-  private Set<String> createSubjectSet(int numberOfSchoolSubject) {
-    Set<String> schoolSubject = new HashSet<>();
+  private Set<Subject> readSubjects(int numberOfSchoolSubject) {
+    Set<Subject> subjects = new HashSet<>();
     do {
-      consolePrinter.printLine("Podaj nazwę jednego przedmiotu");
-      String subject = scanner.nextLine();
-      schoolSubject.add(subject);
-    } while (!(schoolSubject.size() == numberOfSchoolSubject));
-    return schoolSubject;
+      Subject subject = readSubject();
+      subjects.add(subject);
+    } while (!(subjects.size() == numberOfSchoolSubject));
+    return subjects;
+  }
+
+  private Subject readSubject() {
+    consolePrinter.printLine("Podaj nazwę jednego przedmiotu");
+    String subjectName = scanner.nextLine();
+    Subject subject = Subject.fromFullName(subjectName);
+    return subject;
   }
 
   public int getInt() {
@@ -52,51 +61,48 @@ public class DataReader {
     }
   }
 
-  void addSubjectToTeacher(Teacher teacher) {
-    Subject subject;
-      consolePrinter.printLine("Ilu przedmiotów może uczyć ten nauczyciel?");
-      int iteration = getInt();
-
-      consolePrinter.printLine("Wybierz przedmiot wśród wyświetlonych");
-      printSubject();
-      for (int i = 0; i <iteration+1 ; i++) {
-        teacher.setSchoolSubject(getString());
-      }
-    }
-
 
   private String getString() {
     return scanner.nextLine();
   }
 
-  private void printSubject() {
-      for (Subject value : Subject.values()) {
-        System.out.println(value);
-      }
+//  public void printSubject() {
+//      for (Subject value : Subject.values()) {
+//        System.out.println(value);
+//      }
     }
 
-  }
 
-  enum Subject {
-    MATH("MAT", "Matematyka"),
-    POLISH_LANGUAGE("POL", "Język Poolski"),
-    ENGLISH_LANGUAGE("ENG", "Język Angielski");
 
-    private final String code;
-    private final String fullName;
+//  enum Subject {
+//    MATH("MAT", "Matematyka"),
+//    POLISH_LANGUAGE("POL", "Język Poolski"),
+//    ENGLISH_LANGUAGE("ENG", "Język Angielski");
+//
+//    private final String code;
+//    private final String fullName;
+//
+//    Subject(final String code, final String fullName) {
+//      this.code = code;
+//      this.fullName = fullName;
+//    }
+//
+//    public String getCode() {
+//      return code;
+//    }
+//
+//    public String getFullName() {
+//      return fullName;
+//    }
+//
+//    public  static Subject fromFullName(String subject) {
+//      Subject[] values = values();
+//      for (Subject subject1 : values) {
+//        if (subject1.getFullName().equals(subject))
+//          return subject1;
+//      }
+//      return null;
+//    }
 
-    Subject(final String code, final String fullName) {
-      this.code = code;
-      this.fullName = fullName;
-    }
-
-    public String getCode() {
-      return code;
-    }
-
-    public String getFullName() {
-      return fullName;
-    }
-  }
 
 

@@ -1,5 +1,6 @@
 package pl.asia.dao;
 
+
 import pl.asia.model.Subject;
 import pl.asia.model.Teacher;
 
@@ -42,14 +43,15 @@ public class TeacherDao {
   }
 
 
-  public void saveOneSubject(Teacher teacher, String subject) {
-    final String sql = ("""
-            INSERT IGNORE INTO subject
-                    ('%s')
-            VALUES
-                    ('%s');
-                      
-                    """.formatted(subject, teacher.getId()));
+//  public void saveOneSubject(Teacher teacher, Subject subject) {
+//    final String sql = ("""
+//            INSERT IGNORE INTO subject
+//                    ('%s')
+//            VALUES
+//                    ('%s');
+//
+//                    """.formatted(subject., teacher.getId()));
+//    System.out.println(sql);
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
@@ -64,7 +66,7 @@ public class TeacherDao {
 
   public void saveAllSubject(Teacher teacher) {
     for (Subject subject : teacher.getSchoolSubject()) {
-      saveOneSubject(teacher, String.valueOf(subject));
+      saveOneSubject(teacher, subject);
     }
   }
 
