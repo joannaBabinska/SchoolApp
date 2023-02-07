@@ -7,16 +7,13 @@ import pl.asia.model.Teacher;
 import java.sql.*;
 import java.util.Iterator;
 
-public class TeacherDao {
-  private final Connection connection = ConnectionProvider.getConnection();
+public class TeacherDao extends BaseDao{
+//  private final Connection connection = ConnectionProvider.getConnection();
 
-  public TeacherDao() {
-    ConnectionProvider.getConnection();
-  }
 
   public void close() {
     try {
-      connection.close();
+      getConnection().close();
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -30,7 +27,7 @@ public class TeacherDao {
                     VALUES (%s, '%s', '%s', '%s');""",
             teacher.getHourlyWage(), teacher.getFirstName(), teacher.getLastName(), teacher.getDateOfBirth());
 
-    try (Statement statement = connection.createStatement()) {
+    try (Statement statement = getConnection().createStatement()) {
       statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
       ResultSet generatedKeys = statement.getGeneratedKeys();
       if (generatedKeys.next()) {
@@ -40,7 +37,7 @@ public class TeacherDao {
       throw new RuntimeException(e);
     }
 
-  }
+
 
 
 //  public void saveOneSubject(Teacher teacher, Subject subject) {
@@ -53,7 +50,7 @@ public class TeacherDao {
 //                    """.formatted(subject., teacher.getId()));
 //    System.out.println(sql);
 
-    try (Statement statement = connection.createStatement()) {
+    try (Statement statement = getConnection().createStatement()) {
       statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
       ResultSet generatedKeys = statement.getGeneratedKeys();
       if (generatedKeys.next()) {
@@ -64,13 +61,13 @@ public class TeacherDao {
     }
   }
 
-  public void saveAllSubject(Teacher teacher) {
-    for (Subject subject : teacher.getSchoolSubject()) {
-      saveOneSubject(teacher, subject);
-    }
+//  public void saveAllSubject(Teacher teacher) {
+//    for (Subject subject : teacher.getSchoolSubject()) {
+//      saveOneSubject(teacher, subject);
+//    }
   }
 
 
-}
+
 
 
