@@ -27,16 +27,6 @@ public enum Subject {
     return number;
   }
 
-  public static Subject fromFullName(String fullName) {
-    Subject[] values = Subject.values();
-    for (Subject subject : values) {
-      if (subject.getFullName().equalsIgnoreCase(fullName))
-        return subject;
-    }
-    throw new RuntimeException("SUBJECT NOT FOUND " + fullName);
-//    return null;// wyjątek aalno optionala
-  }
-
   public static void printSubject() {
     for (Subject value : Subject.values()) {
       System.out.println(value.fullName + " numer -> " + value.getNumber());

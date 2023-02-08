@@ -40,16 +40,12 @@ public class ControlLoop {
     Teacher teacher = dataReader.enterTeacher();
     teacherDao.saveTeacherToDatabase(teacher);
     teacherDao.saveSubjectToDatabase(teacher);
+    consolePrinter.printLine("Dane zapisano poprawnie");
   }
 
   private void exit(){
     consolePrinter.printLine("Do widzenia");
   }
-
-//  private void enterTeacher() {
-//    teacherService.addTeacher();Teacher(dataReader.enterTeacher());
-//  }
-
   private Options getOptions() {
     boolean optionOk = false;
     Options option = null;

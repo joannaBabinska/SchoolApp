@@ -20,13 +20,6 @@ public class Main {
     ConsolePrinter consolePrinter = new ConsolePrinter();
     DataReader dataReader = new DataReader(consolePrinter);
     Subject.printSubject();
-//    ControlLoop controLoop = new ControlLoop(teacherDao, teacherService,consolePrinter);
-//     Set<String> JoannaSubject = new HashSet<>();
-//     JoannaSubject.add("Biologia");
-//
-//    Teacher teacher1 = new Teacher("Joanna", "Babińska", LocalDate.of(1999,10,12), JoannaSubject, new BigDecimal(100));
-//     teacherDao.save(teacher1);
-//     teacherDao.saveAllSubject(teacher1);
 
   }
 

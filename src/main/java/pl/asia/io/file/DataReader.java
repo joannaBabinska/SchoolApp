@@ -1,14 +1,11 @@
 package pl.asia.io.file;
 
-import pl.asia.app.ControlLoop;
-import pl.asia.exception.NoSuchOptionException;
 import pl.asia.model.Subject;
 import pl.asia.model.Teacher;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -39,22 +36,22 @@ public class DataReader {
   private Set<Subject> enterSubjects() {
     Set<Subject> subjects = new HashSet<>();
     chooseSubjectToEnter(subjects);
-     AddMoreSubjectOrExitLoop(subjects);
+    AddMoreSubjectOrExitLoop(subjects);
 
     return subjects;
   }
 
-  private Set<Subject> AddMoreSubjectOrExitLoop(Set<Subject> subjects) {
+  private void AddMoreSubjectOrExitLoop(Set<Subject> subjects) {
     int option;
     do {
       printAddMoreSubjectOrExit();
       option = getInt();
       if (option == 1) {
         chooseSubjectToEnter(subjects);
-      } else if (option == 0)
-        return subjects;
+      } else if (option == 0) {
+        break;
+      }
     } while (0 != option);
-    return subjects;
   }
 
   private void printAddMoreSubjectOrExit() {
@@ -89,42 +86,6 @@ public class DataReader {
     return scanner.nextLine();
   }
 
-//  public void printSubject() {
-//      for (Subject value : Subject.values()) {
-//        System.out.println(value);
-//      }
 }
-
-
-//  enum Subject {
-//    MATH("MAT", "Matematyka"),
-//    POLISH_LANGUAGE("POL", "Język Poolski"),
-//    ENGLISH_LANGUAGE("ENG", "Język Angielski");
-//
-//    private final String code;
-//    private final String fullName;
-//
-//    Subject(final String code, final String fullName) {
-//      this.code = code;
-//      this.fullName = fullName;
-//    }
-//
-//    public String getCode() {
-//      return code;
-//    }
-//
-//    public String getFullName() {
-//      return fullName;
-//    }
-//
-//    public  static Subject fromFullName(String subject) {
-//      Subject[] values = values();
-//      for (Subject subject1 : values) {
-//        if (subject1.getFullName().equals(subject))
-//          return subject1;
-//      }
-//      return null;
-//    }
-
 
 
