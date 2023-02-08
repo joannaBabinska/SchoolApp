@@ -4,6 +4,7 @@ import pl.asia.dao.TeacherDao;
 import pl.asia.exception.NoSuchOptionException;
 import pl.asia.io.file.ConsolePrinter;
 import pl.asia.io.file.DataReader;
+import pl.asia.model.Teacher;
 import pl.asia.service.TeacherService;
 
 import java.util.InputMismatchException;
@@ -35,13 +36,18 @@ public class ControlLoop {
   } while (option != Options.EXIT);
   }
 
+  private void addTeacher() {
+    Teacher teacher = dataReader.enterTeacher();
+    teacherDao.save(teacher);
+  }
+
   private void exit(){
     consolePrinter.printLine("Do widzenia");
   }
 
-  private void addTeacher() {
-    teacherService.addTeacher(dataReader.addTeacher());
-  }
+//  private void enterTeacher() {
+//    teacherService.addTeacher();Teacher(dataReader.enterTeacher());
+//  }
 
   private Options getOptions() {
     boolean optionOk = false;

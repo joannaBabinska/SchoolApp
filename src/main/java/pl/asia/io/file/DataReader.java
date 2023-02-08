@@ -1,11 +1,14 @@
 package pl.asia.io.file;
 
+import pl.asia.app.ControlLoop;
+import pl.asia.exception.NoSuchOptionException;
 import pl.asia.model.Subject;
 import pl.asia.model.Teacher;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -17,40 +20,61 @@ public class DataReader {
     this.consolePrinter = consolePrinter;
   }
 
-  public Teacher addTeacher() {
+  public Teacher enterTeacher() {
     consolePrinter.printLine("Wprowadź dane nowego nauczyciela");
     consolePrinter.printLine("Podaj imię");
-    String firstName = scanner.nextLine();
+    String firstName = getString();
     consolePrinter.printLine("Podaj nazwisko");
-    String lastName = scanner.nextLine();
-    consolePrinter.printLine("Podaj date urodzenia w formacie YYYY-MM-DD");
-    String dateOfBirth = scanner.nextLine();
+    String lastName = getString();
+    consolePrinter.printLine("Podaj datę urodzenia w formacie YYYY-MM-DD");// obsłuż wyjątek
+    String dateOfBirth = getString();
     LocalDate localDateDateOfBirth = LocalDate.parse(dateOfBirth);
-    consolePrinter.printLine("Podaj liczbę przedmiotów, których może uczyć ten nauczyciel");
-    int numberOfSchoolSubject = scanner.nextInt();
-    scanner.nextLine();
-    consolePrinter.printLine("Wybierz przedmiot wśród wyświetlonych");
-    Subject.printSubject(); // dodaj lun exit przez switcha
-    Set<Subject> subjects = readSubjects(numberOfSchoolSubject);
+    System.out.println("Jakiego przedmiotu może uczyć?");
+    Set<Subject> subjects = enterSubjects();
     consolePrinter.printLine("Podaj stawkę godzinową");
-    int hourlyWage = scanner.nextInt();
+    int hourlyWage = getInt();
     return new Teacher(firstName, lastName, localDateDateOfBirth, subjects, BigDecimal.valueOf(hourlyWage));
   }
 
-  private Set<Subject> readSubjects(int numberOfSchoolSubject) {
+  private Set<Subject> enterSubjects() {
     Set<Subject> subjects = new HashSet<>();
-    do {
-      Subject subject = readSubject();
-      subjects.add(subject);
-    } while (!(subjects.size() == numberOfSchoolSubject));
+    chooseSubjectToEnter(subjects);
+//    printAddMoreSubjectOrExit();
+     AddMoreSubjectOrExitLoop(subjects);
+
     return subjects;
   }
 
-  private Subject readSubject() {
-    consolePrinter.printLine("Podaj nazwę jednego przedmiotu");
-    String subjectName = scanner.nextLine();
-    Subject subject = Subject.fromFullName(subjectName);
-    return subject;
+  private Set<Subject> AddMoreSubjectOrExitLoop(Set<Subject> subjects) {
+    int option;
+    do {
+      printAddMoreSubjectOrExit();
+      option = getInt();
+      if (option == 1) {
+        chooseSubjectToEnter(subjects);
+      } else if (option == 0)
+        return subjects;
+    } while (0 != option);
+    return subjects;
+  }
+
+  private void printAddMoreSubjectOrExit() {
+    System.out.println("Czy chcesz dodać więcej przedmiotów?");
+    int buttonAddMoreSubject = 1;
+    System.out.println("  -> tak wybierz " + buttonAddMoreSubject);
+    int buttonExitEnterSubject = 0;
+    System.out.println("  -> nie wybierz " + buttonExitEnterSubject);
+
+  }
+
+  private void chooseSubjectToEnter(Set<Subject> subjects) {
+    consolePrinter.printLine("Wybierz numer odpowiadający przedmiotowi wyświetlonemu na ekranie");
+    Subject.printSubject();
+    switch (getInt()) {
+      case (1) -> subjects.add(Subject.MATH);
+      case (2) -> subjects.add(Subject.POLISH_LANGUAGE);
+      case (3) -> subjects.add(Subject.ENGLISH_LANGUAGE);
+    }
   }
 
   public int getInt() {
@@ -70,8 +94,7 @@ public class DataReader {
 //      for (Subject value : Subject.values()) {
 //        System.out.println(value);
 //      }
-    }
-
+}
 
 
 //  enum Subject {

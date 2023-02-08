@@ -33,7 +33,7 @@ public enum Subject {
 
   public static void printSubject() {
     for (Subject value : Subject.values()) {
-      System.out.println(value.fullName);
+      System.out.println(value.fullName + " numer -> " + value.getCode());
     }
   }
 

@@ -19,6 +19,7 @@ public class Main {
     TeacherService teacherService = new TeacherService(teacherDao);
     ConsolePrinter consolePrinter = new ConsolePrinter();
     DataReader dataReader = new DataReader(consolePrinter);
+    Subject.printSubject();
 //    ControlLoop controLoop = new ControlLoop(teacherDao, teacherService,consolePrinter);
 //     Set<String> JoannaSubject = new HashSet<>();
 //     JoannaSubject.add("Biologia");
