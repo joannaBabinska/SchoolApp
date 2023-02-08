@@ -63,12 +63,7 @@ public class ControlLoop {
   }
 
 
-//  void loop() {
-//    Options options;
-//    do {
-//      printOptions();
-//    } switch ()
-//  }
+
 
   private void printOptions() {
     consolePrinter.printLine("Wybierz opcję");
@@ -77,8 +72,6 @@ public class ControlLoop {
   }
 
 
-// opttion: dodaj nowego naucycuela
-//    teacherService.addTeacher();
 
 
   private enum Options {
