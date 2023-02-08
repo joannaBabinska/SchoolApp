@@ -38,7 +38,8 @@ public class ControlLoop {
 
   private void addTeacher() {
     Teacher teacher = dataReader.enterTeacher();
-    teacherDao.save(teacher);
+    teacherDao.saveTeacherToDatabase(teacher);
+    teacherDao.saveSubjectToDatabase(teacher);
   }
 
   private void exit(){

@@ -25,7 +25,9 @@ public class Teacher extends User {
   public Set<Subject> getSchoolSubject() {
     return schoolSubject;
   }
-
+  public Subject getNextSchoolSubject() {
+    return schoolSubject.iterator().next();
+  }
 
   public void setSchoolSubject(Subject subject) {
     this.schoolSubject.add(subject);

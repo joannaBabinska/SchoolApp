@@ -36,11 +36,6 @@ ALTER TABLE lesson
 ADD teacher_id INT  NOT NULL,
  ADD FOREIGN KEY (teacher_id) REFERENCES teacher (id);
 
-
-ALTER TABLE teacher
-ADD name_of_subject VARCHAR (30),
-ADD FOREIGN KEY (name_of_subject) REFERENCES teacher_has_subject (subject_name);
-
 ALTER TABLE teacher_has_subject
 ADD teacher_id INT NOT NULL,
 ADD FOREIGN KEY (teacher_id) REFERENCES teacher (id);

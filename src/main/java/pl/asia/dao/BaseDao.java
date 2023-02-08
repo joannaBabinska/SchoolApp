@@ -20,7 +20,7 @@ public class BaseDao {
     }
     }
 
-  public Connection getConnection() {
+  public  Connection getConnection() {
     return connection;
   }
 }

@@ -5,9 +5,8 @@ import pl.asia.model.Subject;
 import pl.asia.model.Teacher;
 
 import java.sql.*;
-import java.util.Iterator;
 
-public class TeacherDao extends BaseDao{
+public class TeacherDao extends BaseDao {
 //  private final Connection connection = ConnectionProvider.getConnection();
 
 
@@ -20,7 +19,7 @@ public class TeacherDao extends BaseDao{
   }
 
 
-  public void save(Teacher teacher) {
+  public void saveTeacherToDatabase(Teacher teacher) {
     final String sql = String.format("""
                     INSERT INTO teacher
                     (hourly_wage, first_name, last_name,date_of_birth)
@@ -36,7 +35,50 @@ public class TeacherDao extends BaseDao{
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
+  }
 
+  public void saveSubjectToDatabase(Teacher teacher) {
+    teacher.getSchoolSubject().forEach(subject -> {
+      addSubjectMethod(subject, teacher);
+    });
+//    for (int i = 0; i < teacher.getSchoolSubject().size(); i++) {
+//      Subject nextSchoolSubject = teacher.getNextSchoolSubject();
+//      final String sql = String.format("""
+//                      INSERT  INTO teacher_has_subject
+//                      	(subject_code, subject_name, teacher_id)
+//                      VALUES
+//                      	(%d, '%s' , %d);""",
+//              nextSchoolSubject.getCode(), nextSchoolSubject.getFullName(), teacher.getId());
+//
+//      try (Statement statement = getConnection().createStatement()) {
+//        statement.executeUpdate(sql/*, Statement.RETURN_GENERATED_KEYS*/);
+////      ResultSet generatedKeys = statement.getGeneratedKeys();
+////      if (generatedKeys.next()) {
+////        teacher.setId(generatedKeys.getInt(1));
+//      } catch (SQLException e) {
+//        throw new RuntimeException(e);
+//      }
+//    }
+  }
+
+  private void addSubjectMethod(Subject subject,Teacher teacher) {
+    final String sql = String.format("""
+                      INSERT  INTO teacher_has_subject
+                      	(subject_code, subject_name, teacher_id)
+                      VALUES
+                      	(%d, '%s' , %d);""",
+            subject.getCode(), subject.getFullName(), teacher.getId());
+
+    try (Statement statement = getConnection().createStatement()) {
+      statement.executeUpdate(sql/*, Statement.RETURN_GENERATED_KEYS*/);
+//      ResultSet generatedKeys = statement.getGeneratedKeys();
+//      if (generatedKeys.next()) {
+//        teacher.setId(generatedKeys.getInt(1));
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  }
 
 
 
@@ -50,22 +92,21 @@ public class TeacherDao extends BaseDao{
 //                    """.formatted(subject., teacher.getId()));
 //    System.out.println(sql);
 
-    try (Statement statement = getConnection().createStatement()) {
-      statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-      ResultSet generatedKeys = statement.getGeneratedKeys();
-      if (generatedKeys.next()) {
-        teacher.setId(generatedKeys.getInt(1));
-      }
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-  }
+//    try (Statement statement = getConnection().createStatement()) {
+//      statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+//      ResultSet generatedKeys = statement.getGeneratedKeys();
+//      if (generatedKeys.next()) {
+//        teacher.setId(generatedKeys.getInt(1));
+//      }
+//    } catch (SQLException e) {
+//      throw new RuntimeException(e);
+//    }
+//  }
 
 //  public void saveAllSubject(Teacher teacher) {
 //    for (Subject subject : teacher.getSchoolSubject()) {
 //      saveOneSubject(teacher, subject);
 //    }
-  }
 
 
 

@@ -12,7 +12,7 @@ public class TeacherService {
   }
 
   public void addTeacher(Teacher teacher) {
-    teacherDao.save(teacher);
+    teacherDao.saveTeacherToDatabase(teacher);
 //    teacherDao.saveAllSubject(teacher);
   }
 }
