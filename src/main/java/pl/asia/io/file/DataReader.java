@@ -70,6 +70,10 @@ public class DataReader {
       case (1) -> subjects.add(Subject.MATH);
       case (2) -> subjects.add(Subject.POLISH_LANGUAGE);
       case (3) -> subjects.add(Subject.ENGLISH_LANGUAGE);
+      case (4) -> subjects.add(Subject.INFORMS);
+      case (5) -> subjects.add(Subject.GEOGRAPHY);
+      case (6) -> subjects.add(Subject.BIOLOGY);
+      case (7) -> subjects.add(Subject.CHEMISTRY);
     }
   }
 
