@@ -9,10 +9,8 @@ CREATE TABLE IF NOT EXISTS teacher (
     hourly_wage INT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS teacher_has_subject (
-    subject_code INT NOT NULL,
-    subject_name VARCHAR(30) NOT NULL UNIQUE
-);
+CREATE TABLE IF NOT EXISTS teacher_has_subject(
+	subject_code VARCHAR(3) PRIMARY KEY NOT NULL);
 
 CREATE TABLE IF NOT EXISTS student (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -33,12 +31,13 @@ CREATE TABLE IF NOT EXISTS lesson (
 );
 
 ALTER TABLE lesson
-ADD teacher_id INT  NOT NULL,
+ADD teacher_id INT PRIMARY KEY NOT NULL,
  ADD FOREIGN KEY (teacher_id) REFERENCES teacher (id);
 
 ALTER TABLE teacher_has_subject
 ADD teacher_id INT NOT NULL,
 ADD FOREIGN KEY (teacher_id) REFERENCES teacher (id);
+
 
 CREATE TABLE IF NOT EXISTS student_has_lesson (
 student_id INT NOT NULL,

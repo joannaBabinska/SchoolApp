@@ -1,24 +1,30 @@
 package pl.asia.model;
 
 public enum Subject {
-  MATH(1, "Matematyka"),
-  POLISH_LANGUAGE(2, "Język Poolski"),
-  ENGLISH_LANGUAGE(3, "Język Angielski");
+  MATH("MAT", "Matematyka", 1),
+  POLISH_LANGUAGE("POL", "Język Polski", 2),
+  ENGLISH_LANGUAGE("ENG", "Język Angielski", 3);
 
-  private final int code;
+  private final String code;
   private final String fullName;
+  private final int number;
 
-  Subject(final int code, final String fullName) {
+  Subject(final String code, final String fullName, int number) {
     this.code = code;
     this.fullName = fullName;
+    this.number = number;
   }
 
-  public int getCode() {
+  public String getCode() {
     return code;
   }
 
   public String getFullName() {
     return fullName;
+  }
+
+  public int getNumber() {
+    return number;
   }
 
   public static Subject fromFullName(String fullName) {
@@ -33,7 +39,7 @@ public enum Subject {
 
   public static void printSubject() {
     for (Subject value : Subject.values()) {
-      System.out.println(value.fullName + " numer -> " + value.getCode());
+      System.out.println(value.fullName + " numer -> " + value.getNumber());
     }
   }
 

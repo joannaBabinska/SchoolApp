@@ -39,7 +39,6 @@ public class DataReader {
   private Set<Subject> enterSubjects() {
     Set<Subject> subjects = new HashSet<>();
     chooseSubjectToEnter(subjects);
-//    printAddMoreSubjectOrExit();
      AddMoreSubjectOrExitLoop(subjects);
 
     return subjects;
