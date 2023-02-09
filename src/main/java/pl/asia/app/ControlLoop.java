@@ -31,9 +31,19 @@ public class ControlLoop {
     switch (option){
       case EXIT -> exit();
       case ADD_TEACHER -> addTeacher();
+      case PRINT_ALL_TEACHERS -> printAllTeachers();
+      case PRINT_INFORMATION_ABOUT_TEACHER -> printInformationAboutTeacher();
       default ->consolePrinter.printLine("Nie ma takiej opcji");
     }
   } while (option != Options.EXIT);
+  }
+
+  private void printInformationAboutTeacher() {
+  }
+
+  private void printAllTeachers() {
+    teacherDao.printAllTeachers();
+    
   }
 
   private void addTeacher() {
@@ -76,7 +86,9 @@ public class ControlLoop {
 
   private enum Options {
     EXIT(0, "Wyjście z programu"),
-    ADD_TEACHER(1, "Dodaj nauczyciela");
+    ADD_TEACHER(1, "Dodaj nauczyciela"),
+    PRINT_ALL_TEACHERS(2, "Wyświetl wszystkich nauczycieli"), 
+    PRINT_INFORMATION_ABOUT_TEACHER(3, "Wyświetl informacje o nauczycielach");
 
     private final String descriptions;
     private final int value;

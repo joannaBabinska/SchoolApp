@@ -1,5 +1,7 @@
 package pl.asia.model;
 
+import java.util.Arrays;
+
 public enum Subject {
   MATH("MAT", "Matematyka", 1),
   POLISH_LANGUAGE("POL", "Język Polski", 2),
@@ -31,10 +33,15 @@ public enum Subject {
     return number;
   }
 
-  public static void printSubject() {
+
+  public static void printSubjectForChooseLoop() {
     for (Subject value : Subject.values()) {
       System.out.println(value.fullName + " numer -> " + value.getNumber());
     }
   }
 
+  public static void printSubjectInfo(Teacher teacher) {
+    teacher.getSchoolSubject().forEach(subject -> System.out.println(subject.fullName));
+
+  }
 }

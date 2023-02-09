@@ -65,7 +65,7 @@ public class DataReader {
 
   private void chooseSubjectToEnter(Set<Subject> subjects) {
     consolePrinter.printLine("Wybierz numer odpowiadający przedmiotowi wyświetlonemu na ekranie");
-    Subject.printSubject();
+    Subject.printSubjectForChooseLoop();
     switch (getInt()) {
       case (1) -> subjects.add(Subject.MATH);
       case (2) -> subjects.add(Subject.POLISH_LANGUAGE);

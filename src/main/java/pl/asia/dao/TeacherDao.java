@@ -5,6 +5,8 @@ import pl.asia.model.Subject;
 import pl.asia.model.Teacher;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TeacherDao extends BaseDao {
 //  private final Connection connection = ConnectionProvider.getConnection();
@@ -59,6 +61,30 @@ public class TeacherDao extends BaseDao {
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  public List<String> takeAllTeachersNamesFromDatabase() {
+    List<String> firstAndLastNames = new ArrayList<>();
+    final String sql = """
+            SELECT first_name, last_name FROM teacher;""";
+    try (Statement statement = getConnection().createStatement()) {
+      ResultSet resultSet = statement.executeQuery(sql);
+
+      while (resultSet.next()) {
+        String firstName = resultSet.getString("first_name");
+        String lastName = resultSet.getString("last_name");
+        firstAndLastNames.add(firstName + " " +  lastName);
+      }
+
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    return firstAndLastNames;
+  }
+
+  public void printAllTeachers() {
+    List<String> names = takeAllTeachersNamesFromDatabase();
+    names.forEach(System.out::println);
   }
 }
 

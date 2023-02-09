@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
-public class Teacher extends User {
+public class Teacher extends User implements Comparable <Teacher> {
   private Set<Subject> schoolSubject;
   private BigDecimal hourlyWage;
 
@@ -15,6 +15,7 @@ public class Teacher extends User {
     this.schoolSubject = schoolSubject;
     this.hourlyWage = hourlyWage;
   }
+
 
   public Teacher(String firstName, String lastName, LocalDate dateOfBirth, Set<Subject> schoolSubject, BigDecimal hourlyWage) {
     super(firstName, lastName, dateOfBirth);
@@ -53,5 +54,14 @@ public class Teacher extends User {
   @Override
   public int hashCode() {
     return Objects.hash(super.hashCode(), schoolSubject, hourlyWage);
+  }
+
+  @Override
+  public int compareTo(Teacher t) {
+    int teacherCompare = getLastName().compareTo(t.getLastName());
+    if (teacherCompare != 0 ) {
+      return teacherCompare;
+    }
+    return getFirstName().compareTo(t.getFirstName());
   }
 }
