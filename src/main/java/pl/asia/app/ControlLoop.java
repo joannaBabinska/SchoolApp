@@ -1,9 +1,11 @@
 package pl.asia.app;
 
+import pl.asia.dao.StudentDao;
 import pl.asia.dao.TeacherDao;
 import pl.asia.exception.NoSuchOptionException;
 import pl.asia.io.file.ConsolePrinter;
 import pl.asia.io.file.DataReader;
+import pl.asia.model.Student;
 import pl.asia.model.Teacher;
 import pl.asia.service.TeacherService;
 
@@ -12,15 +14,18 @@ import java.util.InputMismatchException;
 public class ControlLoop {
 
   private final TeacherDao teacherDao;
+  private final StudentDao studentDao;
   private final TeacherService teacherService;
   private final ConsolePrinter consolePrinter;
   private final DataReader dataReader;
 
-  public ControlLoop(TeacherDao teacherDao, TeacherService teacherService, ConsolePrinter consolePrinter, DataReader dataReader) {
+  public ControlLoop(TeacherDao teacherDao, TeacherService teacherService, ConsolePrinter consolePrinter, DataReader dataReader,
+  StudentDao studentDao) {
     this.teacherDao = teacherDao;
     this.teacherService = teacherService;
     this.consolePrinter = consolePrinter;
     this.dataReader = dataReader;
+    this.studentDao = studentDao;
   }
 
   void mainLoop() {
@@ -33,9 +38,16 @@ public class ControlLoop {
       case ADD_TEACHER -> addTeacher();
       case PRINT_ALL_TEACHERS -> printAllTeachers();
       case PRINT_INFORMATION_ABOUT_TEACHER -> printInformationAboutTeacher();
+      case ADD_STUDENT -> addStudent();
       default ->consolePrinter.printLine("Nie ma takiej opcji");
     }
   } while (option != Options.EXIT);
+  }
+
+  private void addStudent() {
+    Student student = dataReader.enterStudent();
+    studentDao.saveStudentToDatabase(student);
+
   }
 
   private void printInformationAboutTeacher() {
@@ -88,7 +100,8 @@ public class ControlLoop {
     EXIT(0, "Wyjście z programu"),
     ADD_TEACHER(1, "Dodaj nauczyciela"),
     PRINT_ALL_TEACHERS(2, "Wyświetl wszystkich nauczycieli"), 
-    PRINT_INFORMATION_ABOUT_TEACHER(3, "Wyświetl informacje o nauczycielach");
+    PRINT_INFORMATION_ABOUT_TEACHER(3, "Wyświetl informacje o nauczycielach"),
+    ADD_STUDENT(4,"Dodaj ucznia");
 
     private final String descriptions;
     private final int value;
@@ -98,13 +111,6 @@ public class ControlLoop {
       this.value = optionsNumber;
     }
 
-    public String getDescriptions() {
-      return descriptions;
-    }
-
-    public int getValue() {
-      return value;
-    }
 
     @Override
     public String toString() {

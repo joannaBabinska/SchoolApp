@@ -1,5 +1,6 @@
 package pl.asia.io.file;
 
+import pl.asia.model.Student;
 import pl.asia.model.Subject;
 import pl.asia.model.Teacher;
 
@@ -8,10 +9,11 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.SortedMap;
 
 public class DataReader {
-  private Scanner scanner = new Scanner(System.in);
-  private ConsolePrinter consolePrinter;
+  private final Scanner scanner = new Scanner(System.in);
+  private final ConsolePrinter consolePrinter;
 
   public DataReader(ConsolePrinter consolePrinter) {
     this.consolePrinter = consolePrinter;
@@ -90,6 +92,41 @@ public class DataReader {
     return scanner.nextLine();
   }
 
+  public Student enterStudent() {
+    consolePrinter.printLine("Wprowadź dane nowego ucznia");
+    consolePrinter.printLine("Podaj imię");
+    String firstName = getString();
+    consolePrinter.printLine("Podaj nazwisko");
+    String lastName = getString();
+    consolePrinter.printLine("Podaj datę urodzenia w formacie YYYY-MM-DD");// obsłuż wyjątek
+    String dateOfBirth = getString();
+    LocalDate localDateDateOfBirth = LocalDate.parse(dateOfBirth);
+    consolePrinter.printLine("Podaj numer klasy do  której chodzi");
+    int grade = getInt();
+    consolePrinter.printLine("Wybierz szkołę do której chodzi");
+    String school = chooseSchool();
+    return new Student(firstName, lastName, localDateDateOfBirth, grade, school);
+  }
+
+  private String chooseSchool() {
+    printSchoolList();
+    String selectedSchool = null;
+    switch (getInt()) {
+      case 1 -> selectedSchool = "Szkoła podstawowa";
+      case 2 -> selectedSchool = "Liceum";
+      case 3 -> selectedSchool = "Technikum";
+    }
+    return selectedSchool;
+  }
+
+  private void printSchoolList() {
+    consolePrinter.printLine("""
+            Lista szkół:
+             Szkoła podstawowa -> wybierz 1
+             liceum            -> wybierz 2
+             technikum         -> wybierz 3""");
+  }
 }
+
 
 
