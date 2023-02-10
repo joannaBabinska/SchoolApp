@@ -14,12 +14,19 @@ public class ConsolePrinter {
   }
 
   public void printInformationAboutTeacher(Teacher teacher) {
-    System.out.println("Imię:" + teacher.getFirstName() + "; Nazwisko: " + teacher.getLastName() + "; Data urodzenia: "
+    printLine("Imię:" + teacher.getFirstName() + "; Nazwisko: " + teacher.getLastName() + "; Data urodzenia: "
             + teacher.getDateOfBirth() + "; Wynagordzenie za godzine: " + teacher.getHourlyWage());
+
   }
 
   public void printSubjectForTeacher(Teacher teacher){
     Subject.printSubjectInfo(teacher);
+  }
+
+  public void printAllInformationAboutTeacher(Teacher teacher){
+    printInformationAboutTeacher(teacher);
+    printLine("Przedmioty, któreych może uczyć:");
+    printSubjectForTeacher(teacher);
   }
 
 }

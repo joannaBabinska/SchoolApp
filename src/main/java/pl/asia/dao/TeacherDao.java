@@ -9,6 +9,7 @@ import pl.asia.model.Teacher;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class TeacherDao extends BaseDao {
@@ -130,7 +131,7 @@ public class TeacherDao extends BaseDao {
   }
 
 
-  public Optional findSubjectForTeacher(String allInformationFromDatabaseAboutFromTeacher){
+  public Optional <Teacher>  findSubjectForTeacher(String allInformationFromDatabaseAboutFromTeacher){
     String[] baseInformation = allInformationFromDatabaseAboutFromTeacher.split(" ");
     int teacherId = Integer.parseInt(baseInformation[0]);
     String firstName = baseInformation[1];

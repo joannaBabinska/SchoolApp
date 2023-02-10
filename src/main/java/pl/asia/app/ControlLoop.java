@@ -54,7 +54,9 @@ public class ControlLoop {
   private void printInformationAboutTeacher() {
     String fullName = dataReader.getName();
     String allBaseInformationAboutTeacher = teacherDao.findTeacherByName(fullName);
-    Optional subjectForTeacher = teacherDao.findSubjectForTeacher(allBaseInformationAboutTeacher);
+    Optional<Teacher> subjectForTeacher = teacherDao.findSubjectForTeacher(allBaseInformationAboutTeacher);
+    subjectForTeacher.ifPresentOrElse(consolePrinter::printAllInformationAboutTeacher,
+            () -> System.out.println("Brak osoby w bazie danych"));
     };
 
 
