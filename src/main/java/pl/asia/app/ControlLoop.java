@@ -10,6 +10,7 @@ import pl.asia.model.Teacher;
 import pl.asia.service.TeacherService;
 
 import java.util.InputMismatchException;
+import java.util.Optional;
 
 public class ControlLoop {
 
@@ -52,8 +53,10 @@ public class ControlLoop {
 
   private void printInformationAboutTeacher() {
     String fullName = dataReader.getName();
-    teacherDao.findTeacherByName(fullName);
-  }
+    String allBaseInformationAboutTeacher = teacherDao.findTeacherByName(fullName);
+    Optional subjectForTeacher = teacherDao.findSubjectForTeacher(allBaseInformationAboutTeacher);
+    };
+
 
   private void printAllTeachers() {
     teacherDao.takeAllTeachersNamesFromDatabase();
@@ -102,7 +105,7 @@ public class ControlLoop {
     EXIT(0, "Wyjście z programu"),
     ADD_TEACHER(1, "Dodaj nauczyciela"),
     PRINT_ALL_TEACHERS(2, "Wyświetl wszystkich nauczycieli"), 
-    PRINT_INFORMATION_ABOUT_TEACHER(3, "Wyświetl informacje o nauczycielach"),
+    PRINT_INFORMATION_ABOUT_TEACHER(3, "Wyświetl informacje o nauczycielu"),
     ADD_STUDENT(4,"Dodaj ucznia");
 
     private final String descriptions;

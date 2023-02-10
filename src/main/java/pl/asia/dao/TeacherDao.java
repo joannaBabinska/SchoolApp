@@ -84,7 +84,7 @@ public class TeacherDao extends BaseDao {
   }
 
 
-  public Optional findTeacherByName(String name) {
+  public String findTeacherByName(String name) {
     int teacherId = -1;
     String firstName = null;
     String lastName = null;
@@ -93,11 +93,12 @@ public class TeacherDao extends BaseDao {
     String[] fullName = name.split(" ");
     final String sqlT = String.format("""
             SELECT
-                first_name, last_name, date_of_birth, hourly_wage FROM teacher
+                id,first_name, last_name, date_of_birth, hourly_wage
+            FROM
+                teacher
             WHERE
                 first_name = '%s' AND last_name = '%s'; """, fullName[0], fullName[1]);
-    final String sqlS = String.format("""
-            SELECT * FROM teacher_has_subject WHERE teacher_id = '%d'""", teacherId);
+
     try (Statement statement = getConnection().createStatement()) {
 
       ResultSet resultSetT = statement.executeQuery(sqlT);
@@ -109,22 +110,58 @@ public class TeacherDao extends BaseDao {
         hourlyWage = BigDecimal.valueOf(resultSetT.getInt("hourly_wage"));
 //        return Optional.of(new Teacher(id,firstName,lastName,dateOfBirth,subjects,hourlyWage);
       }
+//      final String sqlS = String.format("""
+//            SELECT * FROM teacher_has_subject WHERE teacher_id = '%d'""", teacherId);
+//
+//      ResultSet resultSetS = statement.executeQuery(sqlS);
+//      Set<Subject> subjects = new HashSet<>();
+//
+//      while (resultSetS.next()) {
+//        String subjectCode = resultSetT.getString("subject_code");
+//        Subject subject = makeSubjectFromStringCode(subjectCode);
+//        subjects.add(subject);
+//      }
 
-      ResultSet resultSetS = statement.executeQuery(sqlS);
-      Set<Subject> subjects = new HashSet<>();
-
-      while (resultSetS.next()) {
-        String subjectCode = resultSetT.getString("subject_code");
-        Subject subject = makeSubjectFromStringCode(subjectCode);
-        subjects.add(subject);
-      }
-
-      return Optional.of(new Teacher(teacherId, firstName, lastName, LocalDate.parse(dateOfBirth), subjects, hourlyWage));
+      return teacherId + " " + firstName + " " + lastName + " " + dateOfBirth + " " + hourlyWage;
 
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
   }
+
+
+  public Optional findSubjectForTeacher(String allInformationFromDatabaseAboutFromTeacher){
+    String[] baseInformation = allInformationFromDatabaseAboutFromTeacher.split(" ");
+    int teacherId = Integer.parseInt(baseInformation[0]);
+    String firstName = baseInformation[1];
+    String lastName = baseInformation [2];
+    LocalDate dateOfBirth = LocalDate.parse(baseInformation [3]);
+    BigDecimal hourlyWage = BigDecimal.valueOf(Integer.parseInt(baseInformation[4]));
+
+    Set<Subject> subjects = new HashSet<>();
+
+    try (Statement statement = getConnection().createStatement()) {
+
+          final String sql = String.format("""
+            SELECT * FROM teacher_has_subject WHERE teacher_id = '%d'""", teacherId);
+
+      ResultSet resultSet = statement.executeQuery(sql);
+
+      while (resultSet.next()) {
+        String subjectCode = resultSet.getString("subject_code");
+        Subject subject = makeSubjectFromStringCode(subjectCode);
+        subjects.add(subject);
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+
+    return Optional.of(new Teacher(teacherId,firstName,lastName,dateOfBirth,subjects,hourlyWage));
+
+  };
+
+
+
 
   public Subject makeSubjectFromStringCode(String code) {
     return Arrays.stream(Subject.values())
