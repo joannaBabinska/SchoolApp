@@ -126,6 +126,14 @@ public class DataReader {
              liceum            -> wybierz 2
              technikum         -> wybierz 3""");
   }
+
+  public   String getName(){
+    consolePrinter.printLine("Podaj imię");
+    String firstName = getString();
+    consolePrinter.printLine("Podaj nazwisko");
+    String lastName = getString();
+    return firstName + " " + lastName;
+  }
 }
 
 

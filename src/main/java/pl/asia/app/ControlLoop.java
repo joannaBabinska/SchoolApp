@@ -51,10 +51,12 @@ public class ControlLoop {
   }
 
   private void printInformationAboutTeacher() {
+    String fullName = dataReader.getName();
+    teacherDao.findTeacherByName(fullName);
   }
 
   private void printAllTeachers() {
-    teacherDao.printAllTeachers();
+    teacherDao.takeAllTeachersNamesFromDatabase();
     
   }
 

@@ -32,7 +32,13 @@ public enum Subject {
   public int getNumber() {
     return number;
   }
-
+  public Subject makeSubjectFromStringCode(String code) {
+    Subject subject = Arrays.stream(Subject.values())
+            .filter(subCode -> subCode.getCode().equalsIgnoreCase(code))
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Subject not found " + code));
+    return subject;
+  }
 
   public static void printSubjectForChooseLoop() {
     for (Subject value : Subject.values()) {

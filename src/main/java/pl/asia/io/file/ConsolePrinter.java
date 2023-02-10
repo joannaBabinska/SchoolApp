@@ -21,4 +21,5 @@ public class ConsolePrinter {
   public void printSubjectForTeacher(Teacher teacher){
     Subject.printSubjectInfo(teacher);
   }
+
 }
