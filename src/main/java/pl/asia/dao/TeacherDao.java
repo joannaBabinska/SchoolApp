@@ -84,12 +84,14 @@ public class TeacherDao extends BaseDao {
 
 
   public String findTeacherByName(String name) {
-    int teacherId = -1;
-    String firstName = null;
-    String lastName = null;
-    String dateOfBirth = null;
-    BigDecimal hourlyWage = BigDecimal.valueOf(0.0);
+//    int teacherId = -1;
+//    String firstName = null;
+//    String lastName = null;
+//    String dateOfBirth = null;
+//    BigDecimal hourlyWage = BigDecimal.valueOf(0.0);
     String[] fullName = name.split(" ");
+    String allInformationFromDatabaseAboutFromTeacher = null;
+
     final String sqlT = String.format("""
             SELECT
                 id,first_name, last_name, date_of_birth, hourly_wage
@@ -102,11 +104,13 @@ public class TeacherDao extends BaseDao {
 
       ResultSet resultSetT = statement.executeQuery(sqlT);
       if (resultSetT.next()) {
-        teacherId = resultSetT.getInt("id");
-        firstName = resultSetT.getString("first_name");
-        lastName = resultSetT.getString("last_name");
-        dateOfBirth = resultSetT.getString("date_of_birth");
-        hourlyWage = BigDecimal.valueOf(resultSetT.getInt("hourly_wage"));
+        int teacherId = resultSetT.getInt("id");
+        String firstName = resultSetT.getString("first_name");
+        String lastName = resultSetT.getString("last_name");
+        String dateOfBirth = resultSetT.getString("date_of_birth");
+        BigDecimal hourlyWage = BigDecimal.valueOf(resultSetT.getInt("hourly_wage"));
+        allInformationFromDatabaseAboutFromTeacher =
+                teacherId + " " + firstName + " " + lastName + " " + dateOfBirth + " " + hourlyWage;
 //        return Optional.of(new Teacher(id,firstName,lastName,dateOfBirth,subjects,hourlyWage);
       }
 //      final String sqlS = String.format("""
@@ -121,11 +125,12 @@ public class TeacherDao extends BaseDao {
 //        subjects.add(subject);
 //      }
 
-      return teacherId + " " + firstName + " " + lastName + " " + dateOfBirth + " " + hourlyWage;
+//      return teacherId + " " + firstName + " " + lastName + " " + dateOfBirth + " " + hourlyWage;
 
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
+    return allInformationFromDatabaseAboutFromTeacher;
   }
 
 

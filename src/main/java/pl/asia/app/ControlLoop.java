@@ -1,5 +1,7 @@
 package pl.asia.app;
 
+import pl.asia.dao.StudentDao;
+import pl.asia.dao.TeacherDao;
 import pl.asia.exception.NoSuchOptionException;
 import pl.asia.io.ConsolePrinter;
 import pl.asia.io.DataReader;
@@ -13,18 +15,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class ControlLoop {
-
-  private final TeacherService teacherService;
-  private final ConsolePrinter consolePrinter;
-  private final DataReader dataReader;
-  private final StudentService studentService;
-
-  public ControlLoop(TeacherService teacherService, ConsolePrinter consolePrinter, DataReader dataReader, StudentService sudentService) {
-    this.teacherService = teacherService;
-    this.consolePrinter = consolePrinter;
-    this.dataReader = dataReader;
-    this.studentService = sudentService;
-  }
+  TeacherDao teacherDao = new TeacherDao();
+  TeacherService teacherService = new TeacherService(teacherDao);
+  ConsolePrinter consolePrinter = new ConsolePrinter();
+  DataReader dataReader = new DataReader(consolePrinter);
 
 
   void mainLoop() {
@@ -44,8 +38,8 @@ public class ControlLoop {
   }
 
   private void addStudent() {
-    Student student = dataReader.enterStudent();
-    studentService.add(student);
+//    Student student = dataReader.enterStudent();
+//    studentService.add(student);
   }
 
   private void printInformationAboutTeacher() {

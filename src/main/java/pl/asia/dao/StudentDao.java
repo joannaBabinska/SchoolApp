@@ -1,8 +1,6 @@
 package pl.asia.dao;
 
 import pl.asia.model.Student;
-import pl.asia.model.Teacher;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;

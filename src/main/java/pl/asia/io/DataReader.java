@@ -20,18 +20,17 @@ public class DataReader {
   }
 
   public Teacher enterTeacher() {
-    consolePrinter.printLine("Wprowadź dane nowego nauczyciela");
-    consolePrinter.printLine("Podaj imię");
+    ConsolePrinter.printLine("Wprowadź dane nowego nauczyciela");
+    ConsolePrinter.printLine("Podaj imię");
     String firstName = getString();
-    consolePrinter.printLine("Podaj nazwisko");
+    ConsolePrinter.printLine("Podaj nazwisko");
     String lastName = getString();
-    consolePrinter.printLine("Podaj datę urodzenia w formacie YYYY-MM-DD");// obsłuż wyjątek
+    ConsolePrinter.printLine("Podaj datę urodzenia w formacie YYYY-MM-DD");// obsłuż wyjątek
     String dateOfBirth = getString();
     LocalDate localDateDateOfBirth = LocalDate.parse(dateOfBirth);
     System.out.println("Jakiego przedmiotu może uczyć?");
     Set<Subject> subjects = enterSubjects();
-    Subject studentSubject = Subject.makeSubjectFromIntNumber(getInt());
-    consolePrinter.printLine("Podaj stawkę godzinową");
+    ConsolePrinter.printLine("Podaj stawkę godzinową");
     int hourlyWage = getInt();
     return new Teacher(firstName, lastName, localDateDateOfBirth, subjects, BigDecimal.valueOf(hourlyWage));
   }
@@ -50,10 +49,7 @@ public class DataReader {
       printAddMoreSubjectOrExit();
       option = getInt();
       if (option == 1) {
-        chooseSubjectToEnter(subjects);
-      } else if (option == 0) {
-        break;
-      }
+        chooseSubjectToEnter(subjects);}
     } while (0 != option);
   }
 
@@ -68,27 +64,27 @@ public class DataReader {
   }
 
   private void chooseSubjectToEnter(Set<Subject> subjects) {
-    consolePrinter.printLine("Wybierz numer odpowiadający przedmiotowi wyświetlonemu na ekranie");
+    ConsolePrinter.printLine("Wybierz numer odpowiadający przedmiotowi wyświetlonemu na ekranie");
     Subject.printSubjectForChooseLoop();
     subjects.add(Subject.makeSubjectFromIntNumber(getInt()));
 
   }
 
-  private Subject chooseOneSubject() {
-    Subject.printSubjectForChooseLoop();
-    return switch (getInt()) {
-      case (1) -> Subject.MATH;
-      case (2) -> Subject.POLISH_LANGUAGE;
-      case (3) -> Subject.ENGLISH_LANGUAGE;
-      case (4) -> Subject.INFORMS;
-      case (5) -> Subject.GEOGRAPHY;
-      case (6) -> Subject.BIOLOGY;
-      case (7) -> Subject.CHEMISTRY;
-      default -> throw new NoSuchOptionException("Brak wybranego numeru");
-
-    };
-
-  }
+//  private Subject chooseOneSubject() {
+//    Subject.printSubjectForChooseLoop();
+//    return switch (getInt()) {
+//      case (1) -> Subject.MATH;
+//      case (2) -> Subject.POLISH_LANGUAGE;
+//      case (3) -> Subject.ENGLISH_LANGUAGE;
+//      case (4) -> Subject.INFORMS;
+//      case (5) -> Subject.GEOGRAPHY;
+//      case (6) -> Subject.BIOLOGY;
+//      case (7) -> Subject.CHEMISTRY;
+//      default -> throw new NoSuchOptionException("Brak wybranego numeru");
+//
+//    };
+//
+//  }
 
   public int getInt() {
     try {
