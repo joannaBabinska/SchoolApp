@@ -1,5 +1,6 @@
-package pl.asia.io.file;
+package pl.asia.io;
 
+import pl.asia.exception.NoSuchOptionException;
 import pl.asia.model.Student;
 import pl.asia.model.Subject;
 import pl.asia.model.Teacher;
@@ -9,7 +10,6 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.SortedMap;
 
 public class DataReader {
   private final Scanner scanner = new Scanner(System.in);
@@ -30,6 +30,7 @@ public class DataReader {
     LocalDate localDateDateOfBirth = LocalDate.parse(dateOfBirth);
     System.out.println("Jakiego przedmiotu może uczyć?");
     Set<Subject> subjects = enterSubjects();
+    Subject studentSubject = Subject.makeSubjectFromIntNumber(getInt());
     consolePrinter.printLine("Podaj stawkę godzinową");
     int hourlyWage = getInt();
     return new Teacher(firstName, lastName, localDateDateOfBirth, subjects, BigDecimal.valueOf(hourlyWage));
@@ -57,6 +58,7 @@ public class DataReader {
   }
 
   private void printAddMoreSubjectOrExit() {
+
     System.out.println("Czy chcesz dodać więcej przedmiotów?");
     int buttonAddMoreSubject = 1;
     System.out.println("  -> tak wybierz " + buttonAddMoreSubject);
@@ -68,15 +70,24 @@ public class DataReader {
   private void chooseSubjectToEnter(Set<Subject> subjects) {
     consolePrinter.printLine("Wybierz numer odpowiadający przedmiotowi wyświetlonemu na ekranie");
     Subject.printSubjectForChooseLoop();
-    switch (getInt()) {
-      case (1) -> subjects.add(Subject.MATH);
-      case (2) -> subjects.add(Subject.POLISH_LANGUAGE);
-      case (3) -> subjects.add(Subject.ENGLISH_LANGUAGE);
-      case (4) -> subjects.add(Subject.INFORMS);
-      case (5) -> subjects.add(Subject.GEOGRAPHY);
-      case (6) -> subjects.add(Subject.BIOLOGY);
-      case (7) -> subjects.add(Subject.CHEMISTRY);
-    }
+    subjects.add(Subject.makeSubjectFromIntNumber(getInt()));
+
+  }
+
+  private Subject chooseOneSubject() {
+    Subject.printSubjectForChooseLoop();
+    return switch (getInt()) {
+      case (1) -> Subject.MATH;
+      case (2) -> Subject.POLISH_LANGUAGE;
+      case (3) -> Subject.ENGLISH_LANGUAGE;
+      case (4) -> Subject.INFORMS;
+      case (5) -> Subject.GEOGRAPHY;
+      case (6) -> Subject.BIOLOGY;
+      case (7) -> Subject.CHEMISTRY;
+      default -> throw new NoSuchOptionException("Brak wybranego numeru");
+
+    };
+
   }
 
   public int getInt() {
@@ -127,14 +138,33 @@ public class DataReader {
              technikum         -> wybierz 3""");
   }
 
-  public   String getName(){
+  public String getName() {
     consolePrinter.printLine("Podaj imię");
     String firstName = getString();
     consolePrinter.printLine("Podaj nazwisko");
     String lastName = getString();
     return firstName + " " + lastName;
   }
+
+//  public Lesson enterLesson(){
+//    String id = chooseOneSubject().getCode();
+//    consolePrinter.printLine("Podaj glówną tematyke/ cel lekcji");
+//    String topic = getString();
+//    consolePrinter.printLine("Kiedy mają się odwywać zajęcia - podaj datę w formacie YYYY-MM-DD");
+//    LocalDate dataOfLesson = LocalDate.parse(getString());
+//    consolePrinter.printLine("Podaj czas trwania zajęć");
+//    int duration = getInt();
+//    consolePrinter.printLine("Podaj cenę za zajęcia dla 1 osoby");
+//    int price = getInt();
+//    consolePrinter.printLine("Podaj numer pokoju zajęć");
+//    int numberOfRoom = getInt();
+//    consolePrinter.printLine("Podaj dane nauczyciela prowadzącego");
+//    String fullTeacherName = getName();
+
+
 }
+
+
 
 
 

@@ -2,8 +2,8 @@ package pl.asia.app;
 
 import pl.asia.dao.StudentDao;
 import pl.asia.dao.TeacherDao;
-import pl.asia.io.file.ConsolePrinter;
-import pl.asia.io.file.DataReader;
+import pl.asia.io.ConsolePrinter;
+import pl.asia.io.DataReader;
 import pl.asia.service.TeacherService;
 
 public class SchoolApp {

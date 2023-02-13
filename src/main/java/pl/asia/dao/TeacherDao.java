@@ -1,19 +1,17 @@
 package pl.asia.dao;
 
 
-import pl.asia.io.file.ConsolePrinter;
-import pl.asia.io.file.DataReader;
+import pl.asia.io.ConsolePrinter;
+import pl.asia.io.DataReader;
 import pl.asia.model.Subject;
 import pl.asia.model.Teacher;
 
 import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class TeacherDao extends BaseDao {
-  //  private final Connection connection = ConnectionProvider.getConnection();
   private final ConsolePrinter consolePrinter = new ConsolePrinter();
   private final DataReader dataReader = new DataReader(consolePrinter);
 

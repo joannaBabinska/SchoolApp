@@ -1,11 +1,13 @@
-package pl.asia.io.file;
+package pl.asia.io;
 
 import pl.asia.model.Subject;
 import pl.asia.model.Teacher;
 
+import java.util.List;
+
 public class ConsolePrinter {
 
-  public void printLine(String text) {
+  public static void printLine(String text) {
     System.out.println(text);
   }
 
@@ -27,6 +29,10 @@ public class ConsolePrinter {
     printInformationAboutTeacher(teacher);
     printLine("Przedmioty, któreych może uczyć:");
     printSubjectForTeacher(teacher);
+  }
+
+  public void printAllNameOfTeachers(List<String> teachers) {
+  teachers.forEach(ConsolePrinter::printLine);
   }
 
 }

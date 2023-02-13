@@ -1,33 +1,31 @@
 package pl.asia.app;
 
-import pl.asia.dao.StudentDao;
-import pl.asia.dao.TeacherDao;
 import pl.asia.exception.NoSuchOptionException;
-import pl.asia.io.file.ConsolePrinter;
-import pl.asia.io.file.DataReader;
+import pl.asia.io.ConsolePrinter;
+import pl.asia.io.DataReader;
 import pl.asia.model.Student;
 import pl.asia.model.Teacher;
+import pl.asia.service.StudentService;
 import pl.asia.service.TeacherService;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Optional;
 
 public class ControlLoop {
 
-  private final TeacherDao teacherDao;
-  private final StudentDao studentDao;
   private final TeacherService teacherService;
   private final ConsolePrinter consolePrinter;
   private final DataReader dataReader;
+  private final StudentService studentService;
 
-  public ControlLoop(TeacherDao teacherDao, TeacherService teacherService, ConsolePrinter consolePrinter, DataReader dataReader,
-  StudentDao studentDao) {
-    this.teacherDao = teacherDao;
+  public ControlLoop(TeacherService teacherService, ConsolePrinter consolePrinter, DataReader dataReader, StudentService sudentService) {
     this.teacherService = teacherService;
     this.consolePrinter = consolePrinter;
     this.dataReader = dataReader;
-    this.studentDao = studentDao;
+    this.studentService = sudentService;
   }
+
 
   void mainLoop() {
     Options option = null;
@@ -40,40 +38,40 @@ public class ControlLoop {
       case PRINT_ALL_TEACHERS -> printAllTeachers();
       case PRINT_INFORMATION_ABOUT_TEACHER -> printInformationAboutTeacher();
       case ADD_STUDENT -> addStudent();
-      default ->consolePrinter.printLine("Nie ma takiej opcji");
+      default -> ConsolePrinter.printLine("Nie ma takiej opcji");
     }
   } while (option != Options.EXIT);
   }
 
   private void addStudent() {
     Student student = dataReader.enterStudent();
-    studentDao.saveStudentToDatabase(student);
-
+    studentService.add(student);
   }
 
   private void printInformationAboutTeacher() {
     String fullName = dataReader.getName();
-    String allBaseInformationAboutTeacher = teacherDao.findTeacherByName(fullName);
-    Optional<Teacher> subjectForTeacher = teacherDao.findSubjectForTeacher(allBaseInformationAboutTeacher);
+    String allBaseInformationAboutTeacher = teacherService.findTeacherByName(fullName);
+    Optional<Teacher> subjectForTeacher = teacherService.findSubjectForTeacher(allBaseInformationAboutTeacher);
     subjectForTeacher.ifPresentOrElse(consolePrinter::printAllInformationAboutTeacher,
-            () -> System.out.println("Brak osoby w bazie danych"));
+            () -> ConsolePrinter.printLine("Brak osoby w bazie danych"));
     };
 
 
   private void printAllTeachers() {
-    teacherDao.takeAllTeachersNamesFromDatabase();
-    
+    List<String> names = teacherService.takeAllTeachersNamesFromDatabase();
+    consolePrinter.printAllNameOfTeachers(names);
+
+
   }
 
   private void addTeacher() {
     Teacher teacher = dataReader.enterTeacher();
-    teacherDao.saveTeacherToDatabase(teacher);
-    teacherDao.saveSubjectToDatabase(teacher);
-    consolePrinter.printLine("Dane zapisano poprawnie");
+    teacherService.saveToDatabase(teacher);
+    ConsolePrinter.printLine("Dane zapisano poprawnie");
   }
 
   private void exit(){
-    consolePrinter.printLine("Do widzenia");
+    ConsolePrinter.printLine("Do widzenia");
   }
   private Options getOptions() {
     boolean optionOk = false;
@@ -95,9 +93,9 @@ public class ControlLoop {
 
 
   private void printOptions() {
-    consolePrinter.printLine("Wybierz opcję");
+    ConsolePrinter.printLine("Wybierz opcję");
     for (Options options : Options.values())
-      consolePrinter.printLine(options.toString());
+      ConsolePrinter.printLine(options.toString());
   }
 
 

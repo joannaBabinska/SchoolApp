@@ -13,9 +13,18 @@ public class Lesson {
   private int numberOfRoom;
   private int price;
 
-  public Lesson(String id, Teacher teacher, Set<Student> students, String topic,
-                LocalDateTime date, int duration, int numberOfRoom, int price) {
+  public Lesson(String id, Teacher teacher, Set<Student> students, String topic, LocalDateTime date, int duration, int numberOfRoom, int price) {
     this.id = id;
+    this.teacher = teacher;
+    this.students = students;
+    this.topic = topic;
+    this.date = date;
+    this.duration = duration;
+    this.numberOfRoom = numberOfRoom;
+    this.price = price;
+  }
+
+  public Lesson(Teacher teacher, Set<Student> students, String topic, LocalDateTime date, int duration, int numberOfRoom, int price) {
     this.teacher = teacher;
     this.students = students;
     this.topic = topic;
@@ -29,8 +38,12 @@ public class Lesson {
     return id;
   }
 
+  public void setStudents(Set<Student> students) {
+    this.students = students;
+  }
+
   public void setId(String id) {
-    this.id = id;
+    Subject.makeSubjectFromStringCode(id);
   }
 
   public Teacher getTeacher() {
@@ -45,8 +58,8 @@ public class Lesson {
     return students;
   }
 
-  public void setStudents(Set<Student> students) {
-    this.students = students;
+  public void setStudents(Set<Student> students, Student student) {
+    students.add(student);
   }
 
   public String getTopic() {

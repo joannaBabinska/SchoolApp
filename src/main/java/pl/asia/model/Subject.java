@@ -7,9 +7,9 @@ public enum Subject {
   POLISH_LANGUAGE("POL", "Język Polski", 2),
   ENGLISH_LANGUAGE("ENG", "Język Angielski", 3),
   INFORMS("IT", "Informatyka", 4),
-  GEOGRAPHY("GEO", "Geografia",5),
-  BIOLOGY("BIO","Bilogia",6),
-  CHEMISTRY("CHM","Chemia",7);
+  GEOGRAPHY("GEO", "Geografia", 5),
+  BIOLOGY("BIO", "Bilogia", 6),
+  CHEMISTRY("CHM", "Chemia", 7);
 
   private final String code;
   private final String fullName;
@@ -41,6 +41,22 @@ public enum Subject {
 
   public static void printSubjectInfo(Teacher teacher) {
     teacher.getSchoolSubject().forEach(subject -> System.out.println(subject.fullName));
+
+  }
+
+  public static Subject makeSubjectFromStringCode(String code) {
+    return Arrays.stream(Subject.values())
+            .filter(subCode -> subCode.getCode().equalsIgnoreCase(code))
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Subject not found " + code));
+  }
+
+  public static Subject makeSubjectFromIntNumber(int number) {
+    return Arrays.stream(Subject.values())
+            .filter(subNumb -> subNumb.getNumber() == number)
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Subject not found " + number));
+
 
   }
 }
