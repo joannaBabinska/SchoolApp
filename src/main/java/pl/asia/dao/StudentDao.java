@@ -7,6 +7,8 @@ import java.sql.Statement;
 
 public class StudentDao extends BaseDao {
 
+
+
   public void saveStudentToDatabase(Student student) {
     final String sql = String.format("""
                     INSERT INTO student
@@ -25,4 +27,14 @@ public class StudentDao extends BaseDao {
     }
   }
 
+  public void enrollAStudentInAClass(String FullName){
+
+  }
+
+  public void findStudentIdByFullName(String fullName) {
+    final String sql = String.format("""
+            """);
+//    TODO
+
+  }
 }

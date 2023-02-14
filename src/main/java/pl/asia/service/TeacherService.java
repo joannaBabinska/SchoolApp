@@ -8,11 +8,8 @@ import java.util.Optional;
 
 public class TeacherService {
 
-  private final TeacherDao teacherDao;
+  private final TeacherDao teacherDao = new TeacherDao();
 
-  public TeacherService(TeacherDao teacherDao) {
-    this.teacherDao = teacherDao;
-  }
 
 
   public String findTeacherByName(String fullName) {

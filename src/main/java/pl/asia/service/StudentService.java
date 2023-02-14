@@ -11,5 +11,9 @@ public class StudentService {
   public void add(Student student) {
     studentDao.saveStudentToDatabase(student);
   }
+
+  public void findStudentId(String fullName) {
+    studentDao.findStudentIdByFullName(fullName);
+  }
 }
 

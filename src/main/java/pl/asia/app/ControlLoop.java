@@ -1,7 +1,4 @@
 package pl.asia.app;
-
-import pl.asia.dao.StudentDao;
-import pl.asia.dao.TeacherDao;
 import pl.asia.exception.NoSuchOptionException;
 import pl.asia.io.ConsolePrinter;
 import pl.asia.io.DataReader;
@@ -15,8 +12,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class ControlLoop {
-  TeacherDao teacherDao = new TeacherDao();
-  TeacherService teacherService = new TeacherService(teacherDao);
+
+  TeacherService teacherService = new TeacherService();
+  StudentService studentService = new StudentService();
+
   ConsolePrinter consolePrinter = new ConsolePrinter();
   DataReader dataReader = new DataReader(consolePrinter);
 
@@ -32,14 +31,20 @@ public class ControlLoop {
       case PRINT_ALL_TEACHERS -> printAllTeachers();
       case PRINT_INFORMATION_ABOUT_TEACHER -> printInformationAboutTeacher();
       case ADD_STUDENT -> addStudent();
+      case ENROLL_A_STUDENT_IN_A_LESSONS -> enrollAStudentInALessons();
       default -> ConsolePrinter.printLine("Nie ma takiej opcji");
     }
   } while (option != Options.EXIT);
   }
 
+  private void enrollAStudentInALessons() {
+    String fullName = dataReader.getName();
+    studentService.findStudentId(fullName);
+  }
+
   private void addStudent() {
-//    Student student = dataReader.enterStudent();
-//    studentService.add(student);
+    Student student = dataReader.enterStudent();
+    studentService.add(student);
   }
 
   private void printInformationAboutTeacher() {
@@ -100,7 +105,8 @@ public class ControlLoop {
     ADD_TEACHER(1, "Dodaj nauczyciela"),
     PRINT_ALL_TEACHERS(2, "Wyświetl wszystkich nauczycieli"), 
     PRINT_INFORMATION_ABOUT_TEACHER(3, "Wyświetl informacje o nauczycielu"),
-    ADD_STUDENT(4,"Dodaj ucznia");
+    ADD_STUDENT(4,"Dodaj ucznia"),
+    ENROLL_A_STUDENT_IN_A_LESSONS(5, "Zapisz ucznia na zajęcia");
 
     private final String descriptions;
     private final int value;

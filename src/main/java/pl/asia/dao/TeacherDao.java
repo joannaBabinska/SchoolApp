@@ -84,11 +84,6 @@ public class TeacherDao extends BaseDao {
 
 
   public String findTeacherByName(String name) {
-//    int teacherId = -1;
-//    String firstName = null;
-//    String lastName = null;
-//    String dateOfBirth = null;
-//    BigDecimal hourlyWage = BigDecimal.valueOf(0.0);
     String[] fullName = name.split(" ");
     String allInformationFromDatabaseAboutFromTeacher = null;
 
@@ -111,21 +106,7 @@ public class TeacherDao extends BaseDao {
         BigDecimal hourlyWage = BigDecimal.valueOf(resultSetT.getInt("hourly_wage"));
         allInformationFromDatabaseAboutFromTeacher =
                 teacherId + " " + firstName + " " + lastName + " " + dateOfBirth + " " + hourlyWage;
-//        return Optional.of(new Teacher(id,firstName,lastName,dateOfBirth,subjects,hourlyWage);
       }
-//      final String sqlS = String.format("""
-//            SELECT * FROM teacher_has_subject WHERE teacher_id = '%d'""", teacherId);
-//
-//      ResultSet resultSetS = statement.executeQuery(sqlS);
-//      Set<Subject> subjects = new HashSet<>();
-//
-//      while (resultSetS.next()) {
-//        String subjectCode = resultSetT.getString("subject_code");
-//        Subject subject = makeSubjectFromStringCode(subjectCode);
-//        subjects.add(subject);
-//      }
-
-//      return teacherId + " " + firstName + " " + lastName + " " + dateOfBirth + " " + hourlyWage;
 
     } catch (SQLException e) {
       throw new RuntimeException(e);

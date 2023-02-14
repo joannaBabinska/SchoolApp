@@ -100,17 +100,17 @@ public class DataReader {
   }
 
   public Student enterStudent() {
-    consolePrinter.printLine("Wprowadź dane nowego ucznia");
-    consolePrinter.printLine("Podaj imię");
+    ConsolePrinter.printLine("Wprowadź dane nowego ucznia");
+    ConsolePrinter.printLine("Podaj imię");
     String firstName = getString();
-    consolePrinter.printLine("Podaj nazwisko");
+    ConsolePrinter.printLine("Podaj nazwisko");
     String lastName = getString();
-    consolePrinter.printLine("Podaj datę urodzenia w formacie YYYY-MM-DD");// obsłuż wyjątek
+    ConsolePrinter.printLine("Podaj datę urodzenia w formacie YYYY-MM-DD");// obsłuż wyjątek
     String dateOfBirth = getString();
     LocalDate localDateDateOfBirth = LocalDate.parse(dateOfBirth);
-    consolePrinter.printLine("Podaj numer klasy do  której chodzi");
+    ConsolePrinter.printLine("Podaj numer klasy do  której chodzi");
     int grade = getInt();
-    consolePrinter.printLine("Wybierz szkołę do której chodzi");
+    ConsolePrinter.printLine("Wybierz szkołę do której chodzi");
     String school = chooseSchool();
     return new Student(firstName, lastName, localDateDateOfBirth, grade, school);
   }
@@ -142,6 +142,8 @@ public class DataReader {
     return firstName + " " + lastName;
   }
 
+  }
+
 //  public Lesson enterLesson(){
 //    String id = chooseOneSubject().getCode();
 //    consolePrinter.printLine("Podaj glówną tematyke/ cel lekcji");
@@ -158,7 +160,7 @@ public class DataReader {
 //    String fullTeacherName = getName();
 
 
-}
+
 
 
 
