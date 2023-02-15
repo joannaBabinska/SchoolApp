@@ -1,4 +1,6 @@
 package pl.asia.app;
+import pl.asia.dao.StudentDao;
+import pl.asia.dao.TeacherDao;
 import pl.asia.exception.NoSuchOptionException;
 import pl.asia.io.ConsolePrinter;
 import pl.asia.io.DataReader;
@@ -13,8 +15,10 @@ import java.util.Optional;
 
 public class ControlLoop {
 
-  TeacherService teacherService = new TeacherService();
-  StudentService studentService = new StudentService();
+  TeacherDao teacherDao = new TeacherDao();
+  StudentDao studentDao = new StudentDao();
+  TeacherService teacherService = new TeacherService(teacherDao);
+  StudentService studentService = new StudentService(studentDao);
 
   ConsolePrinter consolePrinter = new ConsolePrinter();
   DataReader dataReader = new DataReader(consolePrinter);

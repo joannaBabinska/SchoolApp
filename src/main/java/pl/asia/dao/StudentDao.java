@@ -5,11 +5,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class StudentDao extends BaseDao {
+public class StudentDao extends BaseDao implements SavingDao <Student>{
 
 
+  public void enrollAStudentInAClass(String FullName){
 
-  public void saveStudentToDatabase(Student student) {
+  }
+
+  public void findStudentIdByFullName(String fullName) {
+    final String sql = String.format("""
+            """);
+//    TODO
+
+  }
+
+  @Override
+  public Student save(Student student) {
     final String sql = String.format("""
                     INSERT INTO student
                       (first_name, last_name,date_of_birth, grade, school)
@@ -25,16 +36,7 @@ public class StudentDao extends BaseDao {
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-  }
-
-  public void enrollAStudentInAClass(String FullName){
-
-  }
-
-  public void findStudentIdByFullName(String fullName) {
-    final String sql = String.format("""
-            """);
-//    TODO
-
+    return new Student(student.getId(),student.getFirstName(),student.getLastName(),student.getDateOfBirth(),
+            student.getGrade(),student.getSchool());
   }
 }

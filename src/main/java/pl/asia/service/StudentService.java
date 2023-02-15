@@ -5,11 +5,15 @@ import pl.asia.model.Student;
 
 public class StudentService {
 
-  private final StudentDao studentDao = new StudentDao();
+  private final StudentDao studentDao;
+
+  public StudentService(StudentDao studentDao) {
+    this.studentDao = studentDao;
+  }
 
 
-  public void add(Student student) {
-    studentDao.saveStudentToDatabase(student);
+  public Student add(Student student) {
+    return studentDao.save(student);
   }
 
   public void findStudentId(String fullName) {

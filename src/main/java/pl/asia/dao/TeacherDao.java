@@ -11,17 +11,9 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;
 
-public class TeacherDao extends BaseDao {
+public class TeacherDao extends BaseDao implements SavingDao<Teacher> {
   private final ConsolePrinter consolePrinter = new ConsolePrinter();
   private final DataReader dataReader = new DataReader(consolePrinter);
-
-  public void close() {
-    try {
-      getConnection().close();
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-  }
 
 
   public void saveTeacherToDatabase(Teacher teacher) {
@@ -115,20 +107,20 @@ public class TeacherDao extends BaseDao {
   }
 
 
-  public Optional <Teacher>  findSubjectForTeacher(String allInformationFromDatabaseAboutFromTeacher){
+  public Optional<Teacher> findSubjectForTeacher(String allInformationFromDatabaseAboutFromTeacher) {
     String[] baseInformation = allInformationFromDatabaseAboutFromTeacher.split(" ");
     int teacherId = Integer.parseInt(baseInformation[0]);
     String firstName = baseInformation[1];
-    String lastName = baseInformation [2];
-    LocalDate dateOfBirth = LocalDate.parse(baseInformation [3]);
+    String lastName = baseInformation[2];
+    LocalDate dateOfBirth = LocalDate.parse(baseInformation[3]);
     BigDecimal hourlyWage = BigDecimal.valueOf(Integer.parseInt(baseInformation[4]));
 
     Set<Subject> subjects = new HashSet<>();
 
     try (Statement statement = getConnection().createStatement()) {
 
-          final String sql = String.format("""
-            SELECT * FROM teacher_has_subject WHERE teacher_id = '%d'""", teacherId);
+      final String sql = String.format("""
+              SELECT * FROM teacher_has_subject WHERE teacher_id = '%d'""", teacherId);
 
       ResultSet resultSet = statement.executeQuery(sql);
 
@@ -141,11 +133,11 @@ public class TeacherDao extends BaseDao {
       throw new RuntimeException(e);
     }
 
-    return Optional.of(new Teacher(teacherId,firstName,lastName,dateOfBirth,subjects,hourlyWage));
+    return Optional.of(new Teacher(teacherId, firstName, lastName, dateOfBirth, subjects, hourlyWage));
 
-  };
+  }
 
-
+  ;
 
 
   public Subject makeSubjectFromStringCode(String code) {
@@ -155,6 +147,31 @@ public class TeacherDao extends BaseDao {
             .orElseThrow(() -> new RuntimeException("Subject not found " + code));
   }
 
+  @Override
+  public Teacher save(Teacher teacher) {
+    final String sql = String.format("""
+                    INSERT INTO teacher
+                    (hourly_wage, first_name, last_name,date_of_birth)
+                    VALUES (%s, '%s', '%s', '%s');""",
+            teacher.getHourlyWage(), teacher.getFirstName(), teacher.getLastName(), teacher.getDateOfBirth());
+
+    try (Statement statement = getConnection().createStatement()) {
+      statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+      ResultSet generatedKeys = statement.getGeneratedKeys();
+
+      teacher.getSchoolSubject().forEach(subject -> {
+        addSubjectMethod(subject, teacher);
+
+      });
+      if (generatedKeys.next()) {
+        teacher.setId(generatedKeys.getInt(1));
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    return new Teacher(teacher.getId(),teacher.getFirstName(),teacher.getFirstName(),
+            teacher.getDateOfBirth(),teacher.getSchoolSubject(),teacher.getHourlyWage());
+  }
 }
 
 
