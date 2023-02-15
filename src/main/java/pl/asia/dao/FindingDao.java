@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public interface FindingDao <T>{
 
-  Optional <T> FindByName(String name);
+  Optional <T> findByName(String name);
 
 
 }

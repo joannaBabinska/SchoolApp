@@ -15,12 +15,8 @@ public class TeacherService {
   }
 
 
-  public String findTeacherByName(String fullName) {
-    return teacherDao.findTeacherByName(fullName);
-  }
-
-  public Optional<Teacher> findSubjectForTeacher(String allBaseInformationAboutTeacher) {
-    return teacherDao.findSubjectForTeacher(allBaseInformationAboutTeacher);
+  public Optional<Teacher> findTeacherByName(String fullName) {
+    return teacherDao.findByName(fullName);
   }
 
   public List<String> takeAllTeachersNamesFromDatabase() {
@@ -33,4 +29,7 @@ public class TeacherService {
   }
 
 
+  public void deleteTeacher(String name) {
+    teacherDao.delete(name);
+  }
 }

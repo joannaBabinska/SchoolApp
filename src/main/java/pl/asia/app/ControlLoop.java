@@ -34,11 +34,17 @@ public class ControlLoop {
       case ADD_TEACHER -> addTeacher();
       case PRINT_ALL_TEACHERS -> printAllTeachers();
       case PRINT_INFORMATION_ABOUT_TEACHER -> printInformationAboutTeacher();
+      case DELETE_TEACHER -> deleteTeacher();
       case ADD_STUDENT -> addStudent();
       case ENROLL_A_STUDENT_IN_A_LESSONS -> enrollAStudentInALessons();
       default -> ConsolePrinter.printLine("Nie ma takiej opcji");
     }
   } while (option != Options.EXIT);
+  }
+
+  private void deleteTeacher() {
+    String name = dataReader.getName();
+    teacherService.deleteTeacher(name);
   }
 
   private void enrollAStudentInALessons() {
@@ -53,8 +59,7 @@ public class ControlLoop {
 
   private void printInformationAboutTeacher() {
     String fullName = dataReader.getName();
-    String allBaseInformationAboutTeacher = teacherService.findTeacherByName(fullName);
-    Optional<Teacher> subjectForTeacher = teacherService.findSubjectForTeacher(allBaseInformationAboutTeacher);
+    Optional<Teacher> subjectForTeacher = teacherService.findTeacherByName(fullName);
     subjectForTeacher.ifPresentOrElse(consolePrinter::printAllInformationAboutTeacher,
             () -> ConsolePrinter.printLine("Brak osoby w bazie danych"));
     };
@@ -109,6 +114,7 @@ public class ControlLoop {
     ADD_TEACHER(1, "Dodaj nauczyciela"),
     PRINT_ALL_TEACHERS(2, "Wyświetl wszystkich nauczycieli"), 
     PRINT_INFORMATION_ABOUT_TEACHER(3, "Wyświetl informacje o nauczycielu"),
+    DELETE_TEACHER(4,"Usuń nauczyciela z bazy danych"),
     ADD_STUDENT(4,"Dodaj ucznia"),
     ENROLL_A_STUDENT_IN_A_LESSONS(5, "Zapisz ucznia na zajęcia");
 
