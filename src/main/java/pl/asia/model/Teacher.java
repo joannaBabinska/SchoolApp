@@ -23,6 +23,11 @@ public class Teacher extends User implements Comparable <Teacher> {
     this.hourlyWage = hourlyWage;
   }
 
+  public Teacher(int id, String firstName, String lastName, LocalDate dateOfBirth, BigDecimal hourlyWage) {
+    super(id, firstName, lastName, dateOfBirth);
+    this.hourlyWage = hourlyWage;
+  }
+
   public Set<Subject> getSchoolSubject() {
     return schoolSubject;
   }

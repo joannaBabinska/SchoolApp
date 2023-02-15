@@ -1,8 +1,10 @@
 package pl.asia.dao;
 
+import java.util.Optional;
+
 public interface FindingDao <T>{
 
-  T FindByName(String name);
+  Optional <T> FindByName(String name);
 
 
 }
