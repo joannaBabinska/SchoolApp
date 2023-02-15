@@ -28,8 +28,8 @@ public class TeacherService {
   }
 
   public void saveToDatabase(Teacher teacher) {
-    teacherDao.saveTeacherToDatabase(teacher);
-    teacherDao.saveSubjectToDatabase(teacher); /* Czy to mati też ma byc w tym save w teacheru? czy dać to do jenej metody? */
+    teacherDao.save(teacher);
+
   }
 
 
