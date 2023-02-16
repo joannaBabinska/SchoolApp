@@ -172,10 +172,9 @@ public class TeacherDao extends BaseDao implements SavingDao<Teacher>, FindingDa
         try (Statement statement = getConnection().createStatement()) {
 
           final String sql = String.format("""
-                DELETE FROM teacher_has_subject where teacher_id = %d;
                 DELETE FROM teacher where id = %d;
-                DELETE FROM lesson where teacher_id = %d;
-                """, id, id, id);
+                
+                """, id);
         } catch (SQLException e) {
           throw new RuntimeException(e);
         }
