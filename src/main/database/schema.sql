@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS teacher (
 );
 
 CREATE TABLE IF NOT EXISTS teacher_has_subject(
-	subject_code VARCHAR(3) PRIMARY KEY NOT NULL);
+	subject_code VARCHAR(3) PRIMARY KEY NOT NULL );
 
 CREATE TABLE IF NOT EXISTS student (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -31,17 +31,17 @@ CREATE TABLE IF NOT EXISTS lesson (
 );
 
 ALTER TABLE lesson
-ADD teacher_id INT PRIMARY KEY NOT NULL,
- ADD FOREIGN KEY (teacher_id) REFERENCES teacher (id);
+ADD teacher_id INT NOT NULL,
+ ADD FOREIGN KEY (teacher_id) REFERENCES teacher (id) ON DELETE CASCADE;
 
 ALTER TABLE teacher_has_subject
 ADD teacher_id INT NOT NULL,
-ADD FOREIGN KEY (teacher_id) REFERENCES teacher (id);
+ADD FOREIGN KEY (teacher_id) REFERENCES teacher (id) ON DELETE CASCADE;
 
 
 CREATE TABLE IF NOT EXISTS student_has_lesson (
 student_id INT NOT NULL,
 lesson_id INT NOT NULL,
-FOREIGN KEY (student_id) REFERENCES student (id),
-FOREIGN KEY (lesson_id) REFERENCES lesson (id)
+FOREIGN KEY (student_id) REFERENCES student (id) ON DELETE CASCADE,
+FOREIGN KEY (lesson_id) REFERENCES lesson (id) ON DELETE CASCADE
 );

@@ -36,9 +36,13 @@ public class TeacherDao extends BaseDao implements SavingDao<Teacher>, FindingDa
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
+
+//    firstAndLastNames.forEach(TeacherDao::splitFullNameAndGetLastName);
+//    return firstAndLastNames.sort();
+    firstAndLastNames.sort(String::compareTo);
+
     return firstAndLastNames;
   }
-
 
   public Subject makeSubjectFromStringCode(String code) {
     return Arrays.stream(Subject.values())
@@ -49,7 +53,7 @@ public class TeacherDao extends BaseDao implements SavingDao<Teacher>, FindingDa
 
   @Override
   public Teacher save(Teacher teacher) {
-    if (checkIfTheTeacherExists(teacher)) {
+    if (!checkIfTheTeacherExists(teacher)) {
       final String sql = String.format("""
                       INSERT INTO teacher
                       (hourly_wage, first_name, last_name,date_of_birth)

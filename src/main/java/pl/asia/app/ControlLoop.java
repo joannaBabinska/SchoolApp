@@ -49,7 +49,7 @@ public class ControlLoop {
 
   private void enrollAStudentInALessons() {
     String fullName = dataReader.getName();
-    studentService.findStudentId(fullName);
+//    studentService.findStudentId(fullName);
   }
 
   private void addStudent() {

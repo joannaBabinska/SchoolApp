@@ -1,9 +1,13 @@
 package pl.asia.dao;
 
 import pl.asia.model.Student;
+
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.Optional;
 
 public class StudentDao extends BaseDao implements SavingDao <Student>{
 
@@ -12,12 +16,42 @@ public class StudentDao extends BaseDao implements SavingDao <Student>{
 
   }
 
-  public void findStudentIdByFullName(String fullName) {
+  public Optional<Student> findStudentByFullName(String fullName) {
+    String[] firstNameAndLastName= fullName.split(" ");
+    String firstName = firstNameAndLastName[0];
+    String lastName = firstNameAndLastName[1];
+    int id = -1;
+    LocalDate dateOfBirth = null;
+    int grade = -1;
+    String school = null;
     final String sql = String.format("""
+            SELECT
+                id,first_name, last_name, date_of_birth, hourly_wage
+            FROM
+                teacher
+            WHERE
+                first_name = '%s' AND last_name = '%s'; ""
             
-            """);
+            """,firstName,lastName);
+
+    try (Statement statement = getConnection().createStatement()) {
+
+      ResultSet resultSetT = statement.executeQuery(sql);
+      if (resultSetT.next()) {
+        id = resultSetT.getInt("id");
+        dateOfBirth = LocalDate.parse(resultSetT.getString("date_of_birth"));
+        grade = resultSetT.getInt("grade");
+        school = resultSetT.getString("school");
+      }
+
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+
+
 //    TODO
 
+    return Optional.of(new Student(id,firstName,lastName,dateOfBirth,grade,school));
   }
 
   @Override

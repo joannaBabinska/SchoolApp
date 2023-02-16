@@ -14,10 +14,15 @@ public class StudentService {
 
   public Student add(Student student) {
     return studentDao.save(student);
-  }
+  }}
 
-  public void findStudentId(String fullName) {
-    studentDao.findStudentIdByFullName(fullName);
-  }
-}
+//  public int findStudentId(String fullName) {
+//    if(studentDao.findStudentByFullName(fullName).isPresent()){
+//      return studentDao.findStudentByFullName(fullName).get().getId();
+//    } else{
+//      throw new
+//    }
+//  }
+//}
 
+//TODO
