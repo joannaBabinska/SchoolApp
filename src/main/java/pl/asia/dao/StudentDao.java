@@ -9,15 +9,23 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public class StudentDao extends BaseDao implements SavingDao <Student>{
+public class StudentDao extends BaseDao implements SavingDao<Student> {
 
 
-  public void enrollAStudentInAClass(String FullName){
+  public void enrollAStudentInTheLesson(int studentId,int lessonId) {
+    final String sql = String.format("""
+            INSERT INTO 
+                student_has_lesson
+            (student_id,lesson_id)
+                VALUES
+            (%d,%d)    
+            
+            """,studentId,lessonId);
 
   }
 
   public Optional<Student> findStudentByFullName(String fullName) {
-    String[] firstNameAndLastName= fullName.split(" ");
+    String[] firstNameAndLastName = fullName.split(" ");
     String firstName = firstNameAndLastName[0];
     String lastName = firstNameAndLastName[1];
     int id = -1;
@@ -26,13 +34,13 @@ public class StudentDao extends BaseDao implements SavingDao <Student>{
     String school = null;
     final String sql = String.format("""
             SELECT
-                id,first_name, last_name, date_of_birth, hourly_wage
+                id,first_name, last_name, date_of_birth, grade, school
             FROM
                 teacher
             WHERE
                 first_name = '%s' AND last_name = '%s'; ""
-            
-            """,firstName,lastName);
+                        
+            """, firstName, lastName);
 
     try (Statement statement = getConnection().createStatement()) {
 
@@ -48,10 +56,7 @@ public class StudentDao extends BaseDao implements SavingDao <Student>{
       throw new RuntimeException(e);
     }
 
-
-//    TODO
-
-    return Optional.of(new Student(id,firstName,lastName,dateOfBirth,grade,school));
+    return Optional.of(new Student(id, firstName, lastName, dateOfBirth, grade, school));
   }
 
   @Override
@@ -60,7 +65,7 @@ public class StudentDao extends BaseDao implements SavingDao <Student>{
                     INSERT INTO student
                       (first_name, last_name,date_of_birth, grade, school)
                       VALUES ('%s', '%s', '%s', %d,'%s');""",
-            student.getFirstName(), student.getLastName(), student.getDateOfBirth(),student.getGrade(),student.getSchool());
+            student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getGrade(), student.getSchool());
 
     try (Statement statement = getConnection().createStatement()) {
       statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
@@ -71,7 +76,7 @@ public class StudentDao extends BaseDao implements SavingDao <Student>{
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-    return new Student(student.getId(),student.getFirstName(),student.getLastName(),student.getDateOfBirth(),
-            student.getGrade(),student.getSchool());
+    return new Student(student.getId(), student.getFirstName(), student.getLastName(), student.getDateOfBirth(),
+            student.getGrade(), student.getSchool());
   }
 }

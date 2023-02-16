@@ -1,11 +1,14 @@
 package pl.asia.app;
+import pl.asia.dao.LessonDao;
 import pl.asia.dao.StudentDao;
 import pl.asia.dao.TeacherDao;
 import pl.asia.exception.NoSuchOptionException;
 import pl.asia.io.ConsolePrinter;
 import pl.asia.io.DataReader;
+import pl.asia.model.Lesson;
 import pl.asia.model.Student;
 import pl.asia.model.Teacher;
+import pl.asia.service.LessonService;
 import pl.asia.service.StudentService;
 import pl.asia.service.TeacherService;
 
@@ -17,8 +20,10 @@ public class ControlLoop {
 
   TeacherDao teacherDao = new TeacherDao();
   StudentDao studentDao = new StudentDao();
+  LessonDao lessonDao = new LessonDao();
   TeacherService teacherService = new TeacherService(teacherDao);
   StudentService studentService = new StudentService(studentDao);
+  LessonService lessonService = new LessonService(lessonDao);
 
   ConsolePrinter consolePrinter = new ConsolePrinter();
   DataReader dataReader = new DataReader(consolePrinter);
@@ -36,10 +41,16 @@ public class ControlLoop {
       case PRINT_INFORMATION_ABOUT_TEACHER -> printInformationAboutTeacher();
       case DELETE_TEACHER -> deleteTeacher();
       case ADD_STUDENT -> addStudent();
-      case ENROLL_A_STUDENT_IN_A_LESSONS -> enrollAStudentInALessons();
+      case ENROLL_A_STUDENT_IN_A_LESSONS -> consolePrinter.printError("Niegotowe");/*enrollAStudentInALessons()*/;
+      case CREATE_CLASSES -> createClasses();
       default -> ConsolePrinter.printLine("Nie ma takiej opcji");
     }
   } while (option != Options.EXIT);
+  }
+
+  private void createClasses() {
+    Lesson lesson = dataReader.enterLesson();
+    lessonService.saveNewLessonInDataBase(lesson);
   }
 
   private void deleteTeacher() {
@@ -47,10 +58,12 @@ public class ControlLoop {
     teacherService.deleteTeacher(name);
   }
 
-  private void enrollAStudentInALessons() {
-    String fullName = dataReader.getName();
-//    studentService.findStudentId(fullName);
-  }
+//  private void enrollAStudentInALessons() {
+//    String fullName = dataReader.getName();
+//    String lessonId = lessonService.findLessonId();
+//    studentService.saveDateAboutStudentAndHisLesson(fullName);
+//  }
+//TODO
 
   private void addStudent() {
     Student student = dataReader.enterStudent();
@@ -75,7 +88,6 @@ public class ControlLoop {
   private void addTeacher() {
     Teacher teacher = dataReader.enterTeacher();
     teacherService.saveToDatabase(teacher);
-    ConsolePrinter.printLine("Dane zapisano poprawnie");
   }
 
   private void exit(){
@@ -116,7 +128,8 @@ public class ControlLoop {
     PRINT_INFORMATION_ABOUT_TEACHER(3, "Wyświetl informacje o nauczycielu"),
     DELETE_TEACHER(4,"Usuń nauczyciela z bazy danych"),
     ADD_STUDENT(4,"Dodaj ucznia"),
-    ENROLL_A_STUDENT_IN_A_LESSONS(5, "Zapisz ucznia na zajęcia");
+    ENROLL_A_STUDENT_IN_A_LESSONS(5, "Zapisz ucznia na zajęcia"),
+    CREATE_CLASSES(6,"Utwórz zajęcia");
 
     private final String descriptions;
     private final int value;

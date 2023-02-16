@@ -75,6 +75,8 @@ public class TeacherDao extends BaseDao implements SavingDao<Teacher>, FindingDa
         addSubjectMethod(subject, teacher);
       });
 
+      ConsolePrinter.printLine("Dane zapisano poprawnie");
+
       return new Teacher(teacher.getId(), teacher.getFirstName(), teacher.getFirstName(),
               teacher.getDateOfBirth(), teacher.getSchoolSubject(), teacher.getHourlyWage());
     } else {

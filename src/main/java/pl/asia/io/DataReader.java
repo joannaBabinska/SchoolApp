@@ -1,6 +1,7 @@
 package pl.asia.io;
 
 import pl.asia.exception.NoSuchOptionException;
+import pl.asia.model.Lesson;
 import pl.asia.model.Student;
 import pl.asia.model.Subject;
 import pl.asia.model.Teacher;
@@ -127,7 +128,7 @@ public class DataReader {
   }
 
   private void printSchoolList() {
-    consolePrinter.printLine("""
+    ConsolePrinter.printLine("""
             Lista szkół:
              Szkoła podstawowa -> wybierz 1
              liceum            -> wybierz 2
@@ -135,14 +136,17 @@ public class DataReader {
   }
 
   public String getName() {
-    consolePrinter.printLine("Podaj imię");
+    ConsolePrinter.printLine("Podaj imię");
     String firstName = getString();
-    consolePrinter.printLine("Podaj nazwisko");
+    ConsolePrinter.printLine("Podaj nazwisko");
     String lastName = getString();
     return firstName + " " + lastName;
   }
 
+  public Lesson enterLesson() {
+    return null;
   }
+}
 
 //  public Lesson enterLesson(){
 //    String id = chooseOneSubject().getCode();
