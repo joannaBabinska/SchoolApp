@@ -1,11 +1,11 @@
 package pl.asia.dao;
 
 
+import pl.asia.exception.TeacherNotExistException;
 import pl.asia.io.ConsolePrinter;
 import pl.asia.io.DataReader;
 import pl.asia.model.Subject;
 import pl.asia.model.Teacher;
-import pl.asia.model.User;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -91,6 +91,12 @@ public class TeacherDao extends BaseDao implements SavingDao<Teacher>, FindingDa
             .stream()
             .anyMatch(teacherName -> teacherName.equals(fullName));
 
+  }
+
+  public int findIdByName(String name){
+    return findByName(name)
+            .map(Teacher::getId)
+            .orElseThrow( () -> new TeacherNotExistException("Bark nauczyciela"));
   }
 
   @Override

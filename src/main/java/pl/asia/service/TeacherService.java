@@ -3,8 +3,11 @@ package pl.asia.service;
 import pl.asia.dao.TeacherDao;
 import pl.asia.model.Teacher;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TeacherService {
 
@@ -25,6 +28,17 @@ public class TeacherService {
 
   public void saveToDatabase(Teacher teacher) {
     teacherDao.save(teacher);
+
+  }
+  public List<String> namesAndIdList(){
+    List<Integer> ids = teacherDao.takeAllTeachersNamesFromDatabase()
+            .stream()
+            .map(teacherDao::findIdByName)
+            .toList();
+    List<String> names = teacherDao.takeAllTeachersNamesFromDatabase();
+
+    return ids.stream().map(id -> id + " " + names)
+            .collect(Collectors.toList());
 
   }
 

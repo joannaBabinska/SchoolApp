@@ -41,7 +41,7 @@ public class ControlLoop {
       case PRINT_INFORMATION_ABOUT_TEACHER -> printInformationAboutTeacher();
       case DELETE_TEACHER -> deleteTeacher();
       case ADD_STUDENT -> addStudent();
-      case ENROLL_A_STUDENT_IN_A_LESSONS -> consolePrinter.printError("Niegotowe");/*enrollAStudentInALessons()*/;
+      case ENROLL_A_STUDENT_IN_A_LESSONS -> consolePrinter.printError("Niegotowe");/*enrollAStudentInALessons()*/
       case CREATE_CLASSES -> createClasses();
       default -> ConsolePrinter.printLine("Nie ma takiej opcji");
     }
@@ -49,8 +49,8 @@ public class ControlLoop {
   }
 
   private void createClasses() {
-    Lesson lesson = dataReader.enterLesson();
-    lessonService.saveNewLessonInDataBase(lesson);
+    Lesson lesson = dataReader.enterLesson(teacherService);
+//    lessonService.saveNewLessonInDataBase(lesson);
   }
 
   private void deleteTeacher() {
@@ -127,9 +127,9 @@ public class ControlLoop {
     PRINT_ALL_TEACHERS(2, "Wyświetl wszystkich nauczycieli"), 
     PRINT_INFORMATION_ABOUT_TEACHER(3, "Wyświetl informacje o nauczycielu"),
     DELETE_TEACHER(4,"Usuń nauczyciela z bazy danych"),
-    ADD_STUDENT(4,"Dodaj ucznia"),
-    ENROLL_A_STUDENT_IN_A_LESSONS(5, "Zapisz ucznia na zajęcia"),
-    CREATE_CLASSES(6,"Utwórz zajęcia");
+    ADD_STUDENT(5,"Dodaj ucznia"),
+    ENROLL_A_STUDENT_IN_A_LESSONS(6, "Zapisz ucznia na zajęcia"),
+    CREATE_CLASSES(7,"Utwórz zajęcia");
 
     private final String descriptions;
     private final int value;

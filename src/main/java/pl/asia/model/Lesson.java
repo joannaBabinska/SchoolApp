@@ -5,18 +5,38 @@ import java.util.Set;
 
 public class Lesson {
   private String id;
-  private Teacher teacher;
-  private Set<Student> students;
+  private int teacher_id;
+//  private Set<Student> students;
   private String topic;
   private LocalDateTime date;
   private int duration;
   private int numberOfRoom;
   private int price;
 
-  public Lesson(String id, Teacher teacher, Set<Student> students, String topic, LocalDateTime date, int duration, int numberOfRoom, int price) {
-    this.id = id;
-    this.teacher = teacher;
-    this.students = students;
+//  public Lesson(String id, int teacher_id, Set<Student> students,
+//                String topic, LocalDateTime date, int duration, int numberOfRoom, int price) {
+//    this.id = id;
+//    this.teacher_id = teacher_id;
+//    this.students = students;
+//    this.topic = topic;
+//    this.date = date;
+//    this.duration = duration;
+//    this.numberOfRoom = numberOfRoom;
+//    this.price = price;
+//  }
+//
+//  public Lesson(int teacher_id, Set<Student> students, String topic, LocalDateTime date, int duration, int numberOfRoom, int price) {
+//    this.teacher_id = teacher_id;
+//    this.students = students;
+//    this.topic = topic;
+//    this.date = date;
+//    this.duration = duration;
+//    this.numberOfRoom = numberOfRoom;
+//    this.price = price;
+//  }
+
+  public Lesson(int teacher_id, String topic, LocalDateTime date, int duration, int numberOfRoom, int price) {
+    this.teacher_id = teacher_id;
     this.topic = topic;
     this.date = date;
     this.duration = duration;
@@ -24,9 +44,9 @@ public class Lesson {
     this.price = price;
   }
 
-  public Lesson(Teacher teacher, Set<Student> students, String topic, LocalDateTime date, int duration, int numberOfRoom, int price) {
-    this.teacher = teacher;
-    this.students = students;
+  public Lesson(String id, int teacher_id, String topic, LocalDateTime date, int duration, int numberOfRoom, int price) {
+    this.id = id;
+    this.teacher_id = teacher_id;
     this.topic = topic;
     this.date = date;
     this.duration = duration;
@@ -38,29 +58,25 @@ public class Lesson {
     return id;
   }
 
-  public void setStudents(Set<Student> students) {
-    this.students = students;
-  }
-
   public void setId(String id) {
-    Subject.makeSubjectFromStringCode(id);
+    this.id = id;
   }
 
-  public Teacher getTeacher() {
-    return teacher;
+  public int getTeacher_id() {
+    return teacher_id;
   }
 
-  public void setTeacher(Teacher teacher) {
-    this.teacher = teacher;
+  public void setTeacher_id(int teacher_id) {
+    this.teacher_id = teacher_id;
   }
-
-  public Set<Student> getStudents() {
-    return students;
-  }
-
-  public void setStudents(Set<Student> students, Student student) {
-    students.add(student);
-  }
+//
+//  public Set<Student> getStudents() {
+//    return students;
+//  }
+//
+//  public void setStudents(Set<Student> students) {
+//    this.students = students;
+//  }
 
   public String getTopic() {
     return topic;
@@ -102,6 +118,9 @@ public class Lesson {
     this.price = price;
   }
 }
+
+
+
 /*
 dodac biblioteke Lombok jako zaleznosc do mavena
 prepared statement zamiast statement

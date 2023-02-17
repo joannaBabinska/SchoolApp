@@ -14,7 +14,7 @@ public class Main {
     ConsolePrinter consolePrinter = new ConsolePrinter();
     DataReader dataReader = new DataReader(consolePrinter);
     Subject.printSubjectForChooseLoop();
-
+    teacherService.namesAndIdList().forEach(System.out::println);
   }
 
 }
