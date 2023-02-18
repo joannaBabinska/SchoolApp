@@ -15,11 +15,11 @@ public class LessonDao extends BaseDao implements SavingDao <Lesson>{
   public Lesson save(Lesson lesson) {
     final String sql = String.format("""
                     INSERT INTO lesson
-                    	(topic,local_data_time, duration,price,number_of_room)
+                    	(name,topic,local_data_time, duration,price,number_of_room, teacher_id)
                     VALUES
-                    ('%s','%s', %d,%d,%d);
+                    ('%s','%s','%s', %d,%d,%d, '%s');
                     """,
-            lesson.getTopic(),lesson.getDate(),lesson.getDuration(),lesson.getPrice(),lesson.getNumberOfRoom());
+            lesson.getName(),lesson.getTopic(),lesson.getDate(),lesson.getDuration(),lesson.getPrice(),lesson.getNumberOfRoom(),lesson.getTeacher_id());
 
     try (Statement statement = getConnection().createStatement()) {
       statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
@@ -34,9 +34,8 @@ public class LessonDao extends BaseDao implements SavingDao <Lesson>{
 
     ConsolePrinter.printLine("Dane zapisano poprawnie");
 
-    return new Lesson(lesson.getId(), lesson.getTeacher_id(), lesson.getTopic(),
+    return new Lesson(lesson.getId(), lesson.getName(), lesson.getTeacher_id(), lesson.getTopic(),
             lesson.getDate(), lesson.getDuration(), lesson.getNumberOfRoom(), lesson.getPrice());
-    return null;
   }
 }
 

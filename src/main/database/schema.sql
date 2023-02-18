@@ -45,3 +45,6 @@ lesson_id INT NOT NULL,
 FOREIGN KEY (student_id) REFERENCES student (id) ON DELETE CASCADE,
 FOREIGN KEY (lesson_id) REFERENCES lesson (id) ON DELETE CASCADE
 );
+
+ALTER TABLE  lesson
+ADD name VARCHAR(5) NOT NULL;

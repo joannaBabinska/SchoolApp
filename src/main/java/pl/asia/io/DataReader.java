@@ -82,7 +82,7 @@ public class DataReader {
   public Lesson enterLesson(TeacherService teacherService) {
     ConsolePrinter.printLine("Wybierz przedmiot reprezentujący lekcję");
     Subject.printSubjectForChooseLoop();
-    String id = Subject.makeSubjectFromIntNumber(getInt()).getCode();
+    String name = Subject.makeSubjectFromIntNumber(getInt()).getCode();
     ConsolePrinter.printLine("Wybierz prowadzącego zajęć wpisują odpowiedni numer");
 
     teacherService.namesAndIdList().forEach(ConsolePrinter::printLine);
@@ -99,7 +99,7 @@ public class DataReader {
     int numberOfRoom = getInt();
     ConsolePrinter.printLine("Wybierz numer odpowiadający nauczycielowi prowadzocemu zajęcia");
 
-    return new Lesson(teacherId,topic,dataOfLesson,duration,numberOfRoom,price);
+    return new Lesson(name,teacherId,topic,dataOfLesson,duration,numberOfRoom,price);
   }
 
   private String chooseSchool() {
