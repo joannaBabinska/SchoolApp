@@ -4,7 +4,8 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 public class Lesson {
-  private String id;
+  private int id;
+  private String name;
   private int teacher_id;
 //  private Set<Student> students;
   private String topic;
@@ -13,39 +14,9 @@ public class Lesson {
   private int numberOfRoom;
   private int price;
 
-//  public Lesson(String id, int teacher_id, Set<Student> students,
-//                String topic, LocalDateTime date, int duration, int numberOfRoom, int price) {
-//    this.id = id;
-//    this.teacher_id = teacher_id;
-//    this.students = students;
-//    this.topic = topic;
-//    this.date = date;
-//    this.duration = duration;
-//    this.numberOfRoom = numberOfRoom;
-//    this.price = price;
-//  }
-//
-//  public Lesson(int teacher_id, Set<Student> students, String topic, LocalDateTime date, int duration, int numberOfRoom, int price) {
-//    this.teacher_id = teacher_id;
-//    this.students = students;
-//    this.topic = topic;
-//    this.date = date;
-//    this.duration = duration;
-//    this.numberOfRoom = numberOfRoom;
-//    this.price = price;
-//  }
-
-  public Lesson(int teacher_id, String topic, LocalDateTime date, int duration, int numberOfRoom, int price) {
-    this.teacher_id = teacher_id;
-    this.topic = topic;
-    this.date = date;
-    this.duration = duration;
-    this.numberOfRoom = numberOfRoom;
-    this.price = price;
-  }
-
-  public Lesson(String id, int teacher_id, String topic, LocalDateTime date, int duration, int numberOfRoom, int price) {
+  public Lesson(int id, String name, int teacher_id, String topic, LocalDateTime date, int duration, int numberOfRoom, int price) {
     this.id = id;
+    this.name = name;
     this.teacher_id = teacher_id;
     this.topic = topic;
     this.date = date;
@@ -54,12 +25,30 @@ public class Lesson {
     this.price = price;
   }
 
-  public String getId() {
+  public Lesson(String name, int teacher_id, String topic, LocalDateTime date, int duration, int numberOfRoom, int price) {
+    this.name = name;
+    this.teacher_id = teacher_id;
+    this.topic = topic;
+    this.date = date;
+    this.duration = duration;
+    this.numberOfRoom = numberOfRoom;
+    this.price = price;
+  }
+
+  public int getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(int id) {
     this.id = id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public int getTeacher_id() {
@@ -69,14 +58,6 @@ public class Lesson {
   public void setTeacher_id(int teacher_id) {
     this.teacher_id = teacher_id;
   }
-//
-//  public Set<Student> getStudents() {
-//    return students;
-//  }
-//
-//  public void setStudents(Set<Student> students) {
-//    this.students = students;
-//  }
 
   public String getTopic() {
     return topic;

@@ -15,7 +15,7 @@ public class LessonService implements SavingDao<Lesson> {
 
   @Override
   public Lesson save(Lesson entity) {
-    Lesson save = lessonDao.save();
+    Lesson save = lessonDao.save(entity);
     return save;
   }
 }

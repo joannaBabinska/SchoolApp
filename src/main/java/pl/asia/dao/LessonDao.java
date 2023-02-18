@@ -8,36 +8,35 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class LessonDao extends BaseDao implements SavingDao{
+public class LessonDao extends BaseDao implements SavingDao <Lesson>{
 
 
   @Override
-  public Object save(Object entity) {
+  public Lesson save(Lesson lesson) {
     final String sql = String.format("""
-                      INSERT INTO teacher
-                      (hourly_wage, first_name, last_name,date_of_birth)
-                      VALUES (%s, '%s', '%s', '%s');""",
-            teacher.getHourlyWage(), teacher.getFirstName(), teacher.getLastName(), teacher.getDateOfBirth());
+                    INSERT INTO lesson
+                    	(topic,local_data_time, duration,price,number_of_room)
+                    VALUES
+                    ('%s','%s', %d,%d,%d);
+                    """,
+            lesson.getTopic(),lesson.getDate(),lesson.getDuration(),lesson.getPrice(),lesson.getNumberOfRoom());
 
     try (Statement statement = getConnection().createStatement()) {
       statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
       ResultSet generatedKeys = statement.getGeneratedKeys();
 
       if (generatedKeys.next()) {
-        teacher.setId(generatedKeys.getInt(1));
+        lesson.setId(generatedKeys.getInt(1));
       }
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
 
-    teacher.getSchoolSubject().forEach(subject -> {
-      addSubjectMethod(subject, teacher);
-    });
-
     ConsolePrinter.printLine("Dane zapisano poprawnie");
 
-    return new Teacher(teacher.getId(), teacher.getFirstName(), teacher.getFirstName(),
-            teacher.getDateOfBirth(), teacher.getSchoolSubject(), teacher.getHourlyWage());
+    return new Lesson(lesson.getId(), lesson.getTeacher_id(), lesson.getTopic(),
+            lesson.getDate(), lesson.getDuration(), lesson.getNumberOfRoom(), lesson.getPrice());
+    return null;
   }
 }
-}
+

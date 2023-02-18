@@ -50,7 +50,7 @@ public class ControlLoop {
 
   private void createClasses() {
     Lesson lesson = dataReader.enterLesson(teacherService);
-//    lessonService.saveNewLessonInDataBase(lesson);
+    lessonService.save(lesson);
   }
 
   private void deleteTeacher() {
