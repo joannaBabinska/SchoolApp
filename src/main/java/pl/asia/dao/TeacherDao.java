@@ -12,12 +12,11 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;
 
-public class TeacherDao extends BaseDao implements SavingDao<Teacher>, FindingDao<Teacher>, DeleteDao {
+public class TeacherDao extends BaseDao implements SavingDao<Teacher>, FindingDao<Teacher> {
 
 
   private final ConsolePrinter consolePrinter = new ConsolePrinter();
   private final DataReader dataReader = new DataReader(consolePrinter);
-
 
 
   public List<String> takeAllTeachersNamesFromDatabase() {
@@ -80,7 +79,7 @@ public class TeacherDao extends BaseDao implements SavingDao<Teacher>, FindingDa
       return new Teacher(teacher.getId(), teacher.getFirstName(), teacher.getFirstName(),
               teacher.getDateOfBirth(), teacher.getSchoolSubject(), teacher.getHourlyWage());
     } else {
-      consolePrinter.printError(" Podany nauczyciel jest juz w bazie danych" );
+      consolePrinter.printError(" Podany nauczyciel jest juz w bazie danych");
     }
     return teacher;
   }
@@ -93,10 +92,10 @@ public class TeacherDao extends BaseDao implements SavingDao<Teacher>, FindingDa
 
   }
 
-  public int findIdByName(String name){
+  public int findIdByName(String name) {
     return findByName(name)
             .map(Teacher::getId)
-            .orElseThrow( () -> new TeacherNotExistException("Bark nauczyciela"));
+            .orElseThrow(() -> new TeacherNotExistException("Bark nauczyciela"));
   }
 
   @Override
@@ -155,7 +154,6 @@ public class TeacherDao extends BaseDao implements SavingDao<Teacher>, FindingDa
   }
 
 
-
   private void addSubjectMethod(Subject subject, Teacher teacher) {
     final String sql = String.format("""
                     INSERT  INTO teacher_has_subject
@@ -171,29 +169,21 @@ public class TeacherDao extends BaseDao implements SavingDao<Teacher>, FindingDa
     }
   }
 
-  @Override
-  public void delete(String name) {    Optional<Teacher> teacher = findByName(name);
-      int id = -1;
-      if (teacher.isPresent()) {
-        id = teacher.get().getId();
 
-        try (Statement statement = getConnection().createStatement()) {
-
-          final String sql = String.format("""
-                DELETE FROM teacher where id = %d;
-                
-                """, id);
-        } catch (SQLException e) {
-          throw new RuntimeException(e);
-        }
-      } else {
-        consolePrinter.printError("Brak nauczyciela o imieniu " + name);
-      }
-
-
+  public void delete(Integer id) {
+    try (Statement statement = getConnection().createStatement()) {
+      final String sql = String.format("""
+              DELETE FROM teacher where id = %d;
+                              
+              """, id);
+      statement.executeUpdate(sql);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
     }
-
   }
+
+
+}
 
 
 

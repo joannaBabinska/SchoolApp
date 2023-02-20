@@ -12,6 +12,7 @@ import pl.asia.service.LessonService;
 import pl.asia.service.StudentService;
 import pl.asia.service.TeacherService;
 
+import java.time.DateTimeException;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
@@ -86,8 +87,13 @@ public class ControlLoop {
   }
 
   private void addTeacher() {
-    Teacher teacher = dataReader.enterTeacher();
-    teacherService.saveToDatabase(teacher);
+    try {
+      Teacher teacher = dataReader.enterTeacher();
+      teacherService.saveToDatabase(teacher);
+    }catch (DateTimeException e) {
+      consolePrinter.printError("Podano datę w złym formacie, nie udało się zapisać danych");
+    }
+
   }
 
   private void exit(){

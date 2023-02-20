@@ -37,13 +37,16 @@ public class TeacherService {
             .toList();
     List<String> names = teacherDao.takeAllTeachersNamesFromDatabase();
 
-    return ids.stream().map(id -> id + " " + names)
-            .collect(Collectors.toList());
-
+    List <String> idAndNamesList = new ArrayList<>();
+    for (int i = 0; i < ids.size(); i++) {
+      idAndNamesList.add(ids.get(i) + " " + names.get(i));
+    }
+    return idAndNamesList;
   }
 
 
   public void deleteTeacher(String name) {
-    teacherDao.delete(name);
+    int id = teacherDao.findIdByName(name);
+    teacherDao.delete(id);
   }
 }
